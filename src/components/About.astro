@@ -8,9 +8,9 @@ const content = {
   es: {
     label: "Sobre mí",
     title: "Más allá<br />del código",
-    bio1: "Soy <strong>Eliacer Fuentealba</strong>, Ingeniero Civil en Informática con mención en Tecnologías de Información, egresado de la Universidad Católica de Temuco (2019–2024).",
+    bio1: "Soy <strong>Eliacer Fuentealba</strong>, Ingeniero Civil en Informática con mención en Tecnologías de Información, titulado de la Universidad Católica de Temuco (2019–2024).",
     bio2: "Cuento con más de 4 años de experiencia en desarrollo Backend, especializado en APIs y microservicios con <strong>Node.js, TypeScript</strong> y frameworks PHP como <strong>Laravel y Lumen</strong>. He trabajado en entornos multi-stack con React, Docker, PostgreSQL, MongoDB y SQL Server, aplicando metodologías ágiles (Scrum, Kanban) en equipos distribuidos.",
-    bio3: "Me oriento a la entrega de <strong>código limpio, escalable</strong> y a la mejora continua de los sistemas en los que participo.",
+    bio3: "Me oriento a la entrega de <strong>código limpio, escalable</strong> y a la mejora continua. Actualmente me encuentro en <strong>aprendizaje constante de AWS y Cloud Computing</strong> para fortalecer mis capacidades de arquitectura y despliegue.",
     v1_t: "Código limpio",
     v1_d: "Escribo código pensando en quien lo va a mantener, no solo en que funcione hoy.",
     v2_t: "Orientado al valor",
@@ -22,13 +22,19 @@ const content = {
     edu_title: "Formación & Certificaciones",
     edu_ver_doc: "Ver documento",
     edu_ver_cred: "Ver credencial",
+    int_title: "Intereses Personales",
+    interests: [
+      { name: "Video Juegos", icon: "🎮" },
+      { name: "Basquetball", icon: "🏀" },
+      { name: "Gym", icon: "🏋️‍♂️" },
+    ],
   },
   en: {
     label: "About Me",
     title: "Beyond<br />the code",
     bio1: "I'm <strong>Eliacer Fuentealba</strong>, a Computer Civil Engineer specializing in Information Technologies, graduated from the Universidad Católica de Temuco (2019–2024).",
     bio2: "I have over 4 years of experience in Backend development, specializing in APIs and microservices with <strong>Node.js, TypeScript</strong>, and PHP frameworks like <strong>Laravel and Lumen</strong>. I've worked in multi-stack environments with React, Docker, PostgreSQL, MongoDB, and SQL Server, applying agile methodologies (Scrum, Kanban) in distributed teams.",
-    bio3: "I focus on delivering <strong>clean, scalable code</strong> and the continuous improvement of the systems I participate in.",
+    bio3: "I focus on delivering <strong>clean, scalable code</strong> and continuous improvement. I am currently in <strong>constant learning of AWS and Cloud Computing</strong> to strengthen my architecture and deployment capabilities.",
     v1_t: "Clean Code",
     v1_d: "I write code thinking about who will maintain it, not just making it work today.",
     v2_t: "Value-Oriented",
@@ -40,6 +46,12 @@ const content = {
     edu_title: "Education & Certifications",
     edu_ver_doc: "View document",
     edu_ver_cred: "View credential",
+    int_title: "Personal Interests",
+    interests: [
+      { name: "Video Games", icon: "🎮" },
+      { name: "Basketball", icon: "🏀" },
+      { name: "Gym", icon: "🏋️‍♂️" },
+    ],
   },
 };
 
@@ -58,34 +70,100 @@ const c = content[lang];
         <p class="about-bio fade-in delay-400" set:html={c.bio3} />
       </div>
 
-      <div class="about-values fade-in delay-300">
-        <div class="value-card">
-          <span class="value-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </span>
-          <h4>{c.v1_t}</h4>
-          <p>{c.v1_d}</p>
+      <div class="about-side fade-in delay-300">
+        <div class="about-values">
+          <div class="value-card">
+            <span class="value-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="16 18 22 12 16 6"></polyline><polyline
+                  points="8 6 2 12 8 18"></polyline></svg
+              >
+            </span>
+            <h4>{c.v1_t}</h4>
+            <p>{c.v1_d}</p>
+          </div>
+          <div class="value-card">
+            <span class="value-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><circle cx="12" cy="12" r="10"></circle><path
+                  d="m16 10-4 4-2-2"></path></svg
+              >
+            </span>
+            <h4>{c.v2_t}</h4>
+            <p>{c.v2_d}</p>
+          </div>
+          <div class="value-card">
+            <span class="value-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M12 2v8"></path><path d="m16 6-4-4-4 4"></path><path
+                  d="M12 22v-8"></path><path d="m8 18 4 4 4-4"></path></svg
+              >
+            </span>
+            <h4>{c.v3_t}</h4>
+            <p>{c.v3_d}</p>
+          </div>
+          <div class="value-card">
+            <span class="value-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                ></path><circle cx="9" cy="7" r="4"></circle><path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg
+              >
+            </span>
+            <h4>{c.v4_t}</h4>
+            <p>{c.v4_d}</p>
+          </div>
         </div>
-        <div class="value-card">
-          <span class="value-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 10-4 4-2-2"/></svg>
-          </span>
-          <h4>{c.v2_t}</h4>
-          <p>{c.v2_d}</p>
-        </div>
-        <div class="value-card">
-          <span class="value-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m16 6-4-4-4 4"/><path d="M12 22v-8"/><path d="m8 18 4 4 4-4"/></svg>
-          </span>
-          <h4>{c.v3_t}</h4>
-          <p>{c.v3_d}</p>
-        </div>
-        <div class="value-card">
-          <span class="value-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </span>
-          <h4>{c.v4_t}</h4>
-          <p>{c.v4_d}</p>
+
+        <div class="interests-container fade-in delay-500">
+          <h4 class="interests-title">{c.int_title}</h4>
+          <div class="interests-grid">
+            {
+              c.interests.map((interest) => (
+                <div class="interest-pill">
+                  <span class="interest-icon">{interest.icon}</span>
+                  <span class="interest-name">{interest.name}</span>
+                </div>
+              ))
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -98,11 +176,29 @@ const c = content[lang];
           class="edu-item card"
           data-doc="/certificados/titul_eliacer.pdf"
         >
-          <span class="edu-badge">{lang === 'es' ? '🎓 Título' : '🎓 Degree'}</span>
-          <strong>{lang === 'es' ? 'Ingeniería Civil en Informática' : 'Computer Civil Engineering'}</strong>
-          <span>{lang === 'es' ? 'Mención en Tecnologías de Información' : 'Specialization in Information Technologies'}</span>
+          <span class="edu-badge"
+            >{lang === "es" ? "🎓 Título" : "🎓 Degree"}</span
+          >
+          <strong
+            >{
+              lang === "es"
+                ? "Ingeniería Civil en Informática"
+                : "Computer Civil Engineering"
+            }</strong
+          >
+          <span
+            >{
+              lang === "es"
+                ? "Mención en Tecnologías de Información"
+                : "Specialization in Information Technologies"
+            }</span
+          >
           <span class="edu-place"
-            >{lang === 'es' ? 'Universidad Católica de Temuco · 2019–2024' : 'Catholic University of Temuco · 2019–2024'}</span
+            >{
+              lang === "es"
+                ? "Universidad Católica de Temuco · 2019–2024"
+                : "Catholic University of Temuco · 2019–2024"
+            }</span
           >
           <div class="edu-item-click-indicator">
             <svg
@@ -123,10 +219,22 @@ const c = content[lang];
           </div>
         </button>
         <button class="edu-item card" data-doc="/certificados/normaiso.pdf">
-          <span class="edu-badge">{lang === 'es' ? '📋 Certificación' : '📋 Certification'}</span>
-          <strong>{lang === 'es' ? 'Aplicación Norma ISO 9001:2015' : 'ISO 9001:2015 Standard Application'}</strong>
+          <span class="edu-badge"
+            >{lang === "es" ? "📋 Certificación" : "📋 Certification"}</span
+          >
+          <strong
+            >{
+              lang === "es"
+                ? "Aplicación Norma ISO 9001:2015"
+                : "ISO 9001:2015 Standard Application"
+            }</strong
+          >
           <span class="edu-place"
-            >{lang === 'es' ? 'Universidad Católica de Temuco · Jul 2024' : 'Catholic University of Temuco · Jul 2024'}</span
+            >{
+              lang === "es"
+                ? "Universidad Católica de Temuco · Jul 2024"
+                : "Catholic University of Temuco · Jul 2024"
+            }</span
           >
           <div class="edu-item-click-indicator">
             <svg
@@ -147,7 +255,9 @@ const c = content[lang];
           </div>
         </button>
         <button class="edu-item card" data-doc="/certificados/pwa.pdf">
-          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <span class="edu-badge"
+            >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
+          >
           <strong>PWA — Aplicaciones Web Progresivas</strong>
           <span class="edu-place">Udemy · Sep 2023</span>
           <div class="edu-item-click-indicator">
@@ -172,7 +282,9 @@ const c = content[lang];
           class="edu-item card"
           data-doc="/certificados/universidadweb.pdf"
         >
-          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <span class="edu-badge"
+            >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
+          >
           <strong>Universidad Desarrollo Web — Frontend</strong>
           <span class="edu-place">Udemy · Dic 2021</span>
           <div class="edu-item-click-indicator">
@@ -194,17 +306,29 @@ const c = content[lang];
           </div>
         </button>
         <button class="edu-item card" data-doc="/cv.pdf">
-          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <span class="edu-badge"
+            >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
+          >
           <strong>Tutor E-Learning</strong>
           <span class="edu-place"
-            >{lang === 'es' ? 'Universidad Católica de Temuco · Ago–Nov 2020' : 'Catholic University of Temuco · Aug–Nov 2020'}</span
+            >{
+              lang === "es"
+                ? "Universidad Católica de Temuco · Ago–Nov 2020"
+                : "Catholic University of Temuco · Aug–Nov 2020"
+            }</span
           >
         </button>
         <button class="edu-item card" data-doc="/cv.pdf">
-          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <span class="edu-badge"
+            >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
+          >
           <strong>Ayudante Nivel Básico</strong>
           <span class="edu-place"
-            >{lang === 'es' ? 'Universidad Católica de Temuco · Abr–Jun 2020' : 'Catholic University of Temuco · Apr–Jun 2020'}</span
+            >{
+              lang === "es"
+                ? "Universidad Católica de Temuco · Abr–Jun 2020"
+                : "Catholic University of Temuco · Apr–Jun 2020"
+            }</span
           >
         </button>
       </div>
@@ -272,13 +396,69 @@ const c = content[lang];
   .value-card {
     background: var(--color-surface-alt);
     border: 1px solid var(--color-border);
-    border-radius: 12px;
-    padding: 22px 20px;
-    transition: border-color 0.25s;
+    border-radius: 20px;
+    padding: 24px 22px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
   }
 
   .value-card:hover {
     border-color: var(--color-accent-light);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 20px -8px
+      rgba(var(--color-accent-rgb, 107, 91, 71), 0.15);
+  }
+
+  .interests-container {
+    margin-top: 40px;
+    padding: 24px;
+    background: linear-gradient(
+      135deg,
+      var(--color-surface-alt) 0%,
+      var(--color-bg) 100%
+    );
+    border-radius: 24px;
+    border: 1px solid var(--color-border);
+  }
+
+  .interests-title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .interests-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .interest-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 18px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text);
+    transition: all 0.25s ease;
+  }
+
+  .interest-pill:hover {
+    background: var(--color-bg);
+    border-color: var(--color-accent);
+    transform: scale(1.05);
+  }
+
+  .interest-icon {
+    font-size: 1.1rem;
   }
 
   .value-icon {
