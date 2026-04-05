@@ -1,0 +1,209 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+interface Skill {
+  name: string;
+  devicon?: string; // e.g. "react", "nodejs", "python"
+}
+
+interface SkillGroup {
+  category: string;
+  icon: string;
+  skills: Skill[];
+}
+
+const skillGroupsData: Record<string, SkillGroup[]> = {
+  es: [
+    {
+      category: 'Backend',
+      icon: '⚙️',
+      skills: [
+        { name: 'Node.js', devicon: 'nodejs-plain' },
+        { name: 'NestJS', devicon: 'nestjs-plain' },
+        { name: 'Laravel', devicon: 'laravel-original' },
+        { name: 'Spring Boot', devicon: 'spring-original' },
+        { name: 'PHP', devicon: 'php-plain' },
+        { name: 'Python', devicon: 'python-plain' },
+        { name: 'TypeScript', devicon: 'typescript-plain' },
+      ],
+    },
+    {
+      category: 'Frontend',
+      icon: '🖥️',
+      skills: [
+        { name: 'React', devicon: 'react-original' },
+        { name: 'Next.js', devicon: 'nextjs-original' },
+        { name: 'Vue.js', devicon: 'vuejs-plain' },
+        { name: 'Astro', devicon: 'astro-plain' },
+        { name: 'Tailwind CSS', devicon: 'tailwindcss-original' },
+        { name: 'Bootstrap', devicon: 'bootstrap-plain' },
+        { name: 'JavaScript', devicon: 'javascript-plain' },
+        { name: 'HTML / CSS', devicon: 'html5-plain' },
+      ],
+    },
+    {
+      category: 'Bases de Datos',
+      icon: '🗄️',
+      skills: [
+        { name: 'PostgreSQL', devicon: 'postgresql-plain' },
+        { name: 'MySQL', devicon: 'mysql-plain' },
+        { name: 'MongoDB', devicon: 'mongodb-plain' },
+        { name: 'SQL Server', devicon: 'microsoftsqlserver-plain' },
+        { name: 'SQLite', devicon: 'sqlite-plain' },
+      ],
+    },
+    {
+      category: 'DevOps & Cloud',
+      icon: '🚀',
+      skills: [
+        { name: 'Docker', devicon: 'docker-plain' },
+        { name: 'GitHub Actions', devicon: 'githubactions-plain' },
+        { name: 'AWS', devicon: 'amazonwebservices-plain-wordmark' },
+        { name: 'Linux', devicon: 'linux-plain' },
+        { name: 'Git', devicon: 'git-plain' },
+        { name: 'Postman', devicon: 'postman-plain' },
+      ],
+    },
+  ],
+  en: [
+    {
+      category: 'Backend',
+      icon: '⚙️',
+      skills: [
+        { name: 'Node.js', devicon: 'nodejs-plain' },
+        { name: 'NestJS', devicon: 'nestjs-plain' },
+        { name: 'Laravel', devicon: 'laravel-original' },
+        { name: 'Spring Boot', devicon: 'spring-original' },
+        { name: 'PHP', devicon: 'php-plain' },
+        { name: 'Python', devicon: 'python-plain' },
+        { name: 'TypeScript', devicon: 'typescript-plain' },
+      ],
+    },
+    {
+      category: 'Frontend',
+      icon: '🖥️',
+      skills: [
+        { name: 'React', devicon: 'react-original' },
+        { name: 'Next.js', devicon: 'nextjs-original' },
+        { name: 'Vue.js', devicon: 'vuejs-plain' },
+        { name: 'Astro', devicon: 'astro-plain' },
+        { name: 'Tailwind CSS', devicon: 'tailwindcss-original' },
+        { name: 'Bootstrap', devicon: 'bootstrap-plain' },
+        { name: 'JavaScript', devicon: 'javascript-plain' },
+        { name: 'HTML / CSS', devicon: 'html5-plain' },
+      ],
+    },
+    {
+      category: 'Databases',
+      icon: '🗄️',
+      skills: [
+        { name: 'PostgreSQL', devicon: 'postgresql-plain' },
+        { name: 'MySQL', devicon: 'mysql-plain' },
+        { name: 'MongoDB', devicon: 'mongodb-plain' },
+        { name: 'SQL Server', devicon: 'microsoftsqlserver-plain' },
+        { name: 'SQLite', devicon: 'sqlite-plain' },
+      ],
+    },
+    {
+      category: 'DevOps & Cloud',
+      icon: '🚀',
+      skills: [
+        { name: 'Docker', devicon: 'docker-plain' },
+        { name: 'GitHub Actions', devicon: 'githubactions-plain' },
+        { name: 'AWS', devicon: 'amazonwebservices-plain-wordmark' },
+        { name: 'Linux', devicon: 'linux-plain' },
+        { name: 'Git', devicon: 'git-plain' },
+        { name: 'Postman', devicon: 'postman-plain' },
+      ],
+    },
+  ]
+};
+
+const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
+---
+
+<section id="habilidades" class="section section-alt">
+  <div class="container">
+    <p class="section-label fade-in">{lang === 'es' ? 'Tecnologías' : 'Technologies'}</p>
+    <h2 class="section-title fade-in delay-100">{lang === 'es' ? 'Habilidades Técnicas' : 'Technical Skills'}</h2>
+    <div class="section-divider fade-in delay-200"></div>
+
+    <div class="skills-grid">
+      {skillGroups.map((group, gi) => (
+        <div class={`skill-card card fade-in delay-${(gi + 2) * 100}`}>
+          <div class="skill-card-header">
+            <span class="skill-icon">{group.icon}</span>
+            <h4 class="skill-category">{group.category}</h4>
+          </div>
+          <div class="skill-tags">
+            {group.skills.map(s => (
+              <span class="tech-chip">
+                {s.devicon && (
+                  <img 
+                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${s.devicon.split('-')[0]}/${s.devicon}.svg`} 
+                    alt={s.name} 
+                    class="tech-icon"
+                  />
+                )}
+                {s.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .skill-card { padding: 28px 24px; }
+
+  .skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .skill-icon { font-size: 1.4rem; line-height: 1; }
+
+  .skill-category {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .tech-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+</style>

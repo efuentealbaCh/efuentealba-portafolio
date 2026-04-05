@@ -1,0 +1,426 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+interface TechTag {
+  name: string;
+  icon?: string;
+}
+
+interface Experience {
+  period: string;
+  role: string;
+  company: string;
+  location: string;
+  description: string[];
+  tags?: TechTag[];
+}
+
+const experiencesData: Record<string, Experience[]> = {
+  es: [
+    {
+      period: "Mar 2024 — Actualidad",
+      role: "Analista / Desarrollador",
+      company: "Universidad Católica de Temuco",
+      location: "Temuco, Chile (Presencial)",
+      description: [
+        "Liderazgo en levantamiento de requerimientos técnicos y control de calidad del ciclo de vida del software.",
+        "Desarrollo de nuevos sistemas integrados al ERP institucional con Laravel 10.",
+        "Mantenimiento de sistemas legacy en PHP 7.4 puro y Ext JS 6.",
+        "Construcción de sistemas modernos con Lumen/Spring Boot (APIs) y React (frontend).",
+        "Gestión de bases de datos SQL Server y uso de contenedores Docker.",
+      ],
+      tags: [
+        { name: "Laravel 10", icon: "laravel" },
+        { name: "Lumen" },
+        { name: "React", icon: "react" },
+        { name: "Spring Boot", icon: "spring" },
+        { name: "PHP 7.4/8.3", icon: "php" },
+        { name: "Ext JS 6" },
+        { name: "Docker", icon: "docker" },
+        { name: "SQL Server", icon: "microsoftsqlserver" },
+      ],
+    },
+    {
+      period: "Oct 2024 — May 2025",
+      role: "Desarrollador Backend (Freelance)",
+      company: "InnBoard",
+      location: "Temuco, Chile (Remoto)",
+      description: [
+        "Desarrollo y mantenimiento de nuevas funcionalidades para sistemas SaaS educativos.",
+        "Construcción del backend para la versión 2.0 del sistema de vinculación con el medio.",
+        "Creación de APIs bajo arquitectura BFF (Backend For Frontend) para microservicios.",
+        "Backend estructurado con Node.js y TypeScript para código sólido y mantenible.",
+        "Diseño y modelado continuo en MongoDB. Manejo de versiones con GitHub y Docker.",
+      ],
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "TypeScript", icon: "typescript" },
+        { name: "Docker", icon: "docker" },
+        { name: "GitHub", icon: "github" },
+        { name: "MongoDB", icon: "mongodb" },
+        { name: "BFF" },
+      ],
+    },
+    {
+      period: "Jun 2023 — Mar 2024",
+      role: "Programador FullStack",
+      company: "VINCULAMOS Latam",
+      location: "Temuco, Chile (Remoto)",
+      description: [
+        "Mantenimiento de servicios legacy Laravel 9 y migración progresiva a Laravel 10.",
+        "Arquitectura orientada a microservicios con Docker desplegados en AWS (reemplazando VPS).",
+        "Desarrollo y optimización de funcionalidades multi-cliente con Node.js.",
+        "Diseño y modelado continuo en PostgreSQL.",
+      ],
+      tags: [
+        { name: "Laravel 9/10", icon: "laravel" },
+        { name: "Node.js", icon: "nodejs" },
+        { name: "Docker", icon: "docker" },
+        { name: "AWS", icon: "amazonwebservices" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "GitHub", icon: "github" },
+      ],
+    },
+    {
+      period: "Nov 2022 — Jun 2023",
+      role: "Desarrollador Backend",
+      company: "VINCULAMOS Latam",
+      location: "Temuco, Chile (Remoto)",
+      description: [
+        "Diseño e implementación de bases de datos para el proyecto Sisrel-Camanchaca.",
+        "Desarrollo de funcionalidades SaaS para el cliente (MVC: Front y Back).",
+        "Seguimiento y control del proyecto con metodologías ágiles (Scrum/Kanban).",
+      ],
+      tags: [
+        { name: "Laravel 9", icon: "laravel" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "GitHub", icon: "github" },
+        { name: "VPS", icon: "linux" },
+        { name: "Scrum" },
+      ],
+    },
+    {
+      period: "Ene 2020 — Ene 2024",
+      role: "Tutor E-Learning (CINAP)",
+      company: "Universidad Católica de Temuco",
+      location: "Temuco, Chile (Híbrido)",
+      description: [
+        "Atención de estudiantes y docentes en salas virtuales sobre plataformas digitales institucionales.",
+        "Apoyo logístico académico: alertas a estudiantes, programación de evaluaciones.",
+        "Minería y procesamiento de datos sobre participación en plataformas educativas.",
+      ],
+      tags: [
+        { name: "Python", icon: "python" },
+        { name: "Excel" },
+        { name: "Microsoft Office" },
+      ],
+    },
+  ],
+  en: [
+    {
+      period: "Mar 2024 — Present",
+      role: "Analyst / Developer",
+      company: "Catholic University of Temuco",
+      location: "Temuco, Chile (On-site)",
+      description: [
+        "Leadership in gathering technical requirements and quality control of the software life cycle.",
+        "Development of new systems integrated into the institutional ERP using Laravel 10.",
+        "Maintenance of legacy systems in pure PHP 7.4 and Ext JS 6.",
+        "Building modern systems with Lumen/Spring Boot (APIs) and React (frontend).",
+        "SQL Server database management and use of Docker containers.",
+      ],
+      tags: [
+        { name: "Laravel 10", icon: "laravel" },
+        { name: "Lumen" },
+        { name: "React", icon: "react" },
+        { name: "Spring Boot", icon: "spring" },
+        { name: "PHP 7.4/8.3", icon: "php" },
+        { name: "Ext JS 6" },
+        { name: "Docker", icon: "docker" },
+        { name: "SQL Server", icon: "microsoftsqlserver" },
+      ],
+    },
+    {
+      period: "Oct 2024 — May 2025",
+      role: "Backend Developer (Freelance)",
+      company: "InnBoard",
+      location: "Temuco, Chile (Remote)",
+      description: [
+        "Development and maintenance of new features for educational SaaS systems.",
+        "Backend construction for version 2.0 of the community engagement system.",
+        "Creation of APIs under BFF (Backend For Frontend) architecture for microservices.",
+        "Structured backend with Node.js and TypeScript for solid and maintainable code.",
+        "Continuous design and modeling in MongoDB. Version control with GitHub and Docker.",
+      ],
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "TypeScript", icon: "typescript" },
+        { name: "Docker", icon: "docker" },
+        { name: "GitHub", icon: "github" },
+        { name: "MongoDB", icon: "mongodb" },
+        { name: "BFF" },
+      ],
+    },
+    {
+      period: "Jun 2023 — Mar 2024",
+      role: "FullStack Programmer",
+      company: "VINCULAMOS Latam",
+      location: "Temuco, Chile (Remote)",
+      description: [
+        "Maintenance of legacy Laravel 9 services and progressive migration to Laravel 10.",
+        "Microservices-oriented architecture with Docker deployed on AWS (replacing VPS).",
+        "Development and optimization of multi-client features with Node.js.",
+        "Continuous design and modeling in PostgreSQL.",
+      ],
+      tags: [
+        { name: "Laravel 9/10", icon: "laravel" },
+        { name: "Node.js", icon: "nodejs" },
+        { name: "Docker", icon: "docker" },
+        { name: "AWS", icon: "amazonwebservices" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "GitHub", icon: "github" },
+      ],
+    },
+    {
+      period: "Nov 2022 — Jun 2023",
+      role: "Backend Developer",
+      company: "VINCULAMOS Latam",
+      location: "Temuco, Chile (Remote)",
+      description: [
+        "Design and implementation of databases for the Sisrel-Camanchaca project.",
+        "Development of SaaS features for the client (MVC: Front and Back).",
+        "Project monitoring and control with agile methodologies (Scrum/Kanban).",
+      ],
+      tags: [
+        { name: "Laravel 9", icon: "laravel" },
+        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "GitHub", icon: "github" },
+        { name: "VPS", icon: "linux" },
+        { name: "Scrum" },
+      ],
+    },
+    {
+      period: "Jan 2020 — Jan 2024",
+      role: "E-Learning Tutor (CINAP)",
+      company: "Catholic University of Temuco",
+      location: "Temuco, Chile (Hybrid)",
+      description: [
+        "Assistance to students and teachers in virtual rooms on institutional digital platforms.",
+        "Academic logistics support: alerts to students, scheduling of evaluations.",
+        "Data mining and processing on participation in educational platforms.",
+      ],
+      tags: [
+        { name: "Python", icon: "python" },
+        { name: "Excel" },
+        { name: "Microsoft Office" },
+      ],
+    },
+  ],
+};
+
+const experiences = experiencesData[lang as keyof typeof experiencesData];
+---
+
+<section id="experiencia" class="section">
+  <div class="container">
+    <p class="section-label fade-in">{lang === 'es' ? 'Trayectoria' : 'Career'}</p>
+    <h2 class="section-title fade-in delay-100">{lang === 'es' ? 'Experiencia Profesional' : 'Professional Experience'}</h2>
+    <div class="section-divider fade-in delay-200"></div>
+
+    <div class="timeline">
+      {
+        experiences.map((exp, i) => (
+          <div
+            class={`timeline-item fade-in delay-${Math.min((i + 2) * 100, 500)}`}
+          >
+            <div class="timeline-period">
+              <span class="period-text">{exp.period}</span>
+              <div class="timeline-dot" />
+            </div>
+            <div class="timeline-body card">
+              <h3 class="exp-role">{exp.role}</h3>
+              <div class="exp-meta">
+                <span class="exp-company">{exp.company}</span>
+                <span class="exp-sep">·</span>
+                <span class="exp-location">{exp.location}</span>
+              </div>
+              <ul class="exp-list">
+                {exp.description.map((d) => (
+                  <li>{d}</li>
+                ))}
+              </ul>
+              {exp.tags && (
+                <div class="tag-list">
+                  {exp.tags.map((t) => (
+                    <span class="tech-chip">
+                      {t.icon && (
+                        <img
+                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-original.svg`}
+                          alt={t.name}
+                          class="tech-icon"
+                          onerror={`this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-plain.svg'`}
+                        />
+                      )}
+                      {t.name}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 160px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--color-border);
+  }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 40px;
+    align-items: start;
+    padding: 24px 0;
+  }
+
+  .timeline-period {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-top: 6px;
+  }
+
+  .period-text {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+    text-align: right;
+    line-height: 1.5;
+  }
+
+  .timeline-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 2px solid var(--color-bg);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+    flex-shrink: 0;
+    margin-top: 4px;
+    position: relative;
+    right: -5px;
+  }
+
+  .timeline-body {
+    padding: 22px 26px;
+  }
+
+  .exp-role {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: 6px;
+  }
+
+  .exp-meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+
+  .exp-company {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+
+  .exp-sep {
+    color: var(--color-border);
+  }
+
+  .exp-location {
+    font-size: 0.76rem;
+    color: var(--color-muted);
+  }
+
+  .exp-list {
+    padding-left: 18px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .exp-list li {
+    color: var(--color-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .tech-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 700px) {
+    .timeline::before {
+      display: none;
+    }
+    .timeline-item {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .timeline-period {
+      justify-content: flex-start;
+    }
+    .timeline-dot {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,450 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const content = {
+  es: {
+    label: "Sobre mí",
+    title: "Más allá<br />del código",
+    bio1: "Soy <strong>Eliacer Fuentealba</strong>, Ingeniero Civil en Informática con mención en Tecnologías de Información, egresado de la Universidad Católica de Temuco (2019–2024).",
+    bio2: "Cuento con más de 4 años de experiencia en desarrollo Backend, especializado en APIs y microservicios con <strong>Node.js, TypeScript</strong> y frameworks PHP como <strong>Laravel y Lumen</strong>. He trabajado en entornos multi-stack con React, Docker, PostgreSQL, MongoDB y SQL Server, aplicando metodologías ágiles (Scrum, Kanban) en equipos distribuidos.",
+    bio3: "Me oriento a la entrega de <strong>código limpio, escalable</strong> y a la mejora continua de los sistemas en los que participo.",
+    v1_t: "Código limpio",
+    v1_d: "Escribo código pensando en quien lo va a mantener, no solo en que funcione hoy.",
+    v2_t: "Orientado al valor",
+    v2_d: "Lo que construyo debe resolver un problema real, no solo ser técnicamente correcto.",
+    v3_t: "Mejora continua",
+    v3_d: "Las certificaciones y el aprendizaje constante son parte de mi rutina profesional.",
+    v4_t: "Trabajo en equipo",
+    v4_d: "Experiencia real con metodologías ágiles y trabajo remoto en equipos multidisciplinarios.",
+    edu_title: "Formación & Certificaciones",
+    edu_ver_doc: "Ver documento",
+    edu_ver_cred: "Ver credencial",
+  },
+  en: {
+    label: "About Me",
+    title: "Beyond<br />the code",
+    bio1: "I'm <strong>Eliacer Fuentealba</strong>, a Computer Civil Engineer specializing in Information Technologies, graduated from the Universidad Católica de Temuco (2019–2024).",
+    bio2: "I have over 4 years of experience in Backend development, specializing in APIs and microservices with <strong>Node.js, TypeScript</strong>, and PHP frameworks like <strong>Laravel and Lumen</strong>. I've worked in multi-stack environments with React, Docker, PostgreSQL, MongoDB, and SQL Server, applying agile methodologies (Scrum, Kanban) in distributed teams.",
+    bio3: "I focus on delivering <strong>clean, scalable code</strong> and the continuous improvement of the systems I participate in.",
+    v1_t: "Clean Code",
+    v1_d: "I write code thinking about who will maintain it, not just making it work today.",
+    v2_t: "Value-Oriented",
+    v2_d: "What I build must solve a real problem, not just be technically correct.",
+    v3_t: "Continuous Improvement",
+    v3_d: "Certifications and constant learning are part of my professional routine.",
+    v4_t: "Teamwork",
+    v4_d: "Real experience with agile methodologies and remote work in multidisciplinary teams.",
+    edu_title: "Education & Certifications",
+    edu_ver_doc: "View document",
+    edu_ver_cred: "View credential",
+  },
+};
+
+const c = content[lang];
+---
+
+<section id="sobre-mi" class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-text">
+        <p class="section-label fade-in">{c.label}</p>
+        <h2 class="section-title fade-in delay-100" set:html={c.title} />
+        <div class="section-divider fade-in delay-200"></div>
+        <p class="about-bio fade-in delay-300" set:html={c.bio1} />
+        <p class="about-bio fade-in delay-300" set:html={c.bio2} />
+        <p class="about-bio fade-in delay-400" set:html={c.bio3} />
+      </div>
+
+      <div class="about-values fade-in delay-300">
+        <div class="value-card">
+          <span class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </span>
+          <h4>{c.v1_t}</h4>
+          <p>{c.v1_d}</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16 10-4 4-2-2"/></svg>
+          </span>
+          <h4>{c.v2_t}</h4>
+          <p>{c.v2_d}</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"/><path d="m16 6-4-4-4 4"/><path d="M12 22v-8"/><path d="m8 18 4 4 4-4"/></svg>
+          </span>
+          <h4>{c.v3_t}</h4>
+          <p>{c.v3_d}</p>
+        </div>
+        <div class="value-card">
+          <span class="value-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </span>
+          <h4>{c.v4_t}</h4>
+          <p>{c.v4_d}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Educación y Certificaciones -->
+    <div class="edu-section fade-in delay-400">
+      <h3 class="edu-title">{c.edu_title}</h3>
+      <div class="edu-grid">
+        <button
+          class="edu-item card"
+          data-doc="/certificados/titul_eliacer.pdf"
+        >
+          <span class="edu-badge">{lang === 'es' ? '🎓 Título' : '🎓 Degree'}</span>
+          <strong>{lang === 'es' ? 'Ingeniería Civil en Informática' : 'Computer Civil Engineering'}</strong>
+          <span>{lang === 'es' ? 'Mención en Tecnologías de Información' : 'Specialization in Information Technologies'}</span>
+          <span class="edu-place"
+            >{lang === 'es' ? 'Universidad Católica de Temuco · 2019–2024' : 'Catholic University of Temuco · 2019–2024'}</span
+          >
+          <div class="edu-item-click-indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6M10 14L21 3"
+              ></path></svg
+            >
+            {c.edu_ver_doc}
+          </div>
+        </button>
+        <button class="edu-item card" data-doc="/certificados/normaiso.pdf">
+          <span class="edu-badge">{lang === 'es' ? '📋 Certificación' : '📋 Certification'}</span>
+          <strong>{lang === 'es' ? 'Aplicación Norma ISO 9001:2015' : 'ISO 9001:2015 Standard Application'}</strong>
+          <span class="edu-place"
+            >{lang === 'es' ? 'Universidad Católica de Temuco · Jul 2024' : 'Catholic University of Temuco · Jul 2024'}</span
+          >
+          <div class="edu-item-click-indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6M10 14L21 3"
+              ></path></svg
+            >
+            {c.edu_ver_cred}
+          </div>
+        </button>
+        <button class="edu-item card" data-doc="/certificados/pwa.pdf">
+          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <strong>PWA — Aplicaciones Web Progresivas</strong>
+          <span class="edu-place">Udemy · Sep 2023</span>
+          <div class="edu-item-click-indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6M10 14L21 3"
+              ></path></svg
+            >
+            {c.edu_ver_cred}
+          </div>
+        </button>
+        <button
+          class="edu-item card"
+          data-doc="/certificados/universidadweb.pdf"
+        >
+          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <strong>Universidad Desarrollo Web — Frontend</strong>
+          <span class="edu-place">Udemy · Dic 2021</span>
+          <div class="edu-item-click-indicator">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              ><path
+                d="M15 3h6v6M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6M10 14L21 3"
+              ></path></svg
+            >
+            {c.edu_ver_doc}
+          </div>
+        </button>
+        <button class="edu-item card" data-doc="/cv.pdf">
+          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <strong>Tutor E-Learning</strong>
+          <span class="edu-place"
+            >{lang === 'es' ? 'Universidad Católica de Temuco · Ago–Nov 2020' : 'Catholic University of Temuco · Aug–Nov 2020'}</span
+          >
+        </button>
+        <button class="edu-item card" data-doc="/cv.pdf">
+          <span class="edu-badge">{lang === 'es' ? '📋 Curso' : '📋 Course'}</span>
+          <strong>Ayudante Nivel Básico</strong>
+          <span class="edu-place"
+            >{lang === 'es' ? 'Universidad Católica de Temuco · Abr–Jun 2020' : 'Catholic University of Temuco · Apr–Jun 2020'}</span
+          >
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Modal Wrapper -->
+<div id="doc-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modal-title" class="modal-title">Documento</h3>
+      <button id="modal-close" class="modal-close" aria-label="Cerrar modal">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><line x1="18" y1="6" x2="6" y2="18"></line><line
+            x1="6"
+            y1="6"
+            x2="18"
+            y2="18"></line></svg
+        >
+      </button>
+    </div>
+    <div class="modal-body" id="doc-modal-body">
+      <!-- Media will be dynamically injected here -->
+    </div>
+  </div>
+</div>
+
+<style>
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    margin-bottom: 72px;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    color: var(--color-muted);
+    line-height: 1.9;
+    margin-bottom: 18px;
+  }
+
+  .about-bio strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .about-values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .value-card {
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 22px 20px;
+    transition: border-color 0.25s;
+  }
+
+  .value-card:hover {
+    border-color: var(--color-accent-light);
+  }
+
+  .value-icon {
+    display: block;
+    font-size: 1.1rem;
+    font-family: var(--font-mono);
+    margin-bottom: 12px;
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .value-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--color-text);
+  }
+
+  .value-card p {
+    font-size: 0.82rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+  }
+
+  /* Education */
+  .edu-title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    margin-bottom: 28px;
+    color: var(--color-text);
+  }
+
+  .edu-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .edu-item {
+    padding: 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    text-align: left;
+    appearance: none;
+    font-family: inherit;
+    outline: none;
+  }
+
+  .edu-item:hover {
+    border-color: var(--color-accent-light);
+  }
+
+  .edu-item-click-indicator {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity 0.25s,
+      transform 0.25s;
+    letter-spacing: 0.05em;
+  }
+
+  .edu-item:hover .edu-item-click-indicator,
+  .edu-item:focus-visible .edu-item-click-indicator {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .edu-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    margin-bottom: 4px;
+  }
+
+  .edu-item strong {
+    font-size: 0.88rem;
+    color: var(--color-text);
+    font-weight: 600;
+    line-height: 1.4;
+  }
+
+  .edu-item span {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+    line-height: 1.5;
+  }
+
+  .edu-place {
+    font-family: var(--font-mono);
+    font-size: 0.7rem !important;
+    color: var(--color-accent) !important;
+    margin-top: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 48px;
+    }
+    .edu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .about-values {
+      grid-template-columns: 1fr;
+    }
+    .edu-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const triggers = document.querySelectorAll(".edu-item");
+    const modal = document.getElementById("doc-modal");
+    const closeBtn = document.getElementById("modal-close");
+    const modalBody = document.getElementById("doc-modal-body");
+    const title = document.getElementById("modal-title");
+
+    if (!modal) return;
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        const doc = trigger.getAttribute("data-doc");
+        const docTitle =
+          trigger.querySelector("strong")?.textContent || "Documento";
+
+        if (doc && modalBody) {
+          if (doc.match(/\.(jpeg|jpg|png|webp)$/i)) {
+            modalBody.innerHTML = `<img src="${doc}" alt="${docTitle}" />`;
+          } else {
+            modalBody.innerHTML = `<iframe src="${doc}"></iframe>`;
+          }
+          if (title) title.textContent = docTitle;
+          modal.classList.add("is-open");
+          document.body.style.overflow = "hidden";
+        }
+      });
+    });
+
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      document.body.style.overflow = "";
+      if (modalBody) {
+        setTimeout(() => (modalBody.innerHTML = ""), 300);
+      }
+    };
+
+    closeBtn?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+  });
+</script>

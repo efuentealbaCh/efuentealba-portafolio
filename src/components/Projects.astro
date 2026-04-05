@@ -1,0 +1,406 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+interface TechTag {
+  name: string;
+  icon?: string;
+}
+
+interface Project {
+  title: string;
+  description: string;
+  type: string;
+  year: string;
+  tags: TechTag[];
+  link?: string;
+}
+
+const projectsData: Record<string, Project[]> = {
+  es: [
+    {
+      title: "Captador de Clientes",
+      description:
+        "Herramienta de automatización de prospección comercial. Extrae negocios desde Google Maps con Selenium, valida correos y WhatsApp, genera mensajes personalizados y exporta leads a Excel. Incluye dashboard con CustomTkinter.",
+      type: "Automatización",
+      year: "2024",
+      tags: [
+        { name: "Python", icon: "python" },
+        { name: "Selenium", icon: "selenium" },
+        { name: "Excel" },
+      ],
+      link: "https://gitlab.com",
+    },
+    {
+      title: "Plataforma de Licitaciones",
+      description:
+        "Sistema web para registrar entradas y salidas de funcionarios de entidades de salud en la IX Región. Control de acceso por roles, reportería en tiempo real y autenticación JWT.",
+      type: "Web App",
+      year: "2024",
+      tags: [
+        { name: "Laravel", icon: "laravel" },
+        { name: "Vue.js", icon: "vuejs" },
+        { name: "MySQL", icon: "mysql" },
+        { name: "Docker", icon: "docker" },
+      ],
+    },
+    {
+      title: "Monitor de Vencimientos",
+      description:
+        "Dashboard para seguimiento de vencimientos de documentos legales y contratos. Notificaciones automáticas por correo y generación de reportes PDF. Desarrollado con stack MERN.",
+      type: "Dashboard",
+      year: "2023",
+      tags: [
+        { name: "React", icon: "react" },
+        { name: "Node.js", icon: "nodejs" },
+        { name: "MongoDB", icon: "mongodb" },
+      ],
+    },
+    {
+      title: "API BFF Microservicios",
+      description:
+        "Backend for Frontend que centraliza múltiples microservicios bajo una sola interfaz. Implementa rate limiting, logging estructurado, circuit breaker y documentación OpenAPI con Swagger.",
+      type: "Backend",
+      year: "2024",
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "TypeScript", icon: "typescript" },
+        { name: "Docker", icon: "docker" },
+      ],
+    },
+    {
+      title: "Currículum en Línea",
+      description:
+        "Portafolio web personal generado con Astro y Tailwind CSS. Deploy automático en Netlify con CI/CD. Optimizado para rendimiento (100/100 Lighthouse) y SEO.",
+      type: "Frontend",
+      year: "2023",
+      tags: [
+        { name: "Astro", icon: "astro" },
+        { name: "TailwindCSS", icon: "tailwindcss" },
+      ],
+    },
+    {
+      title: "Sistema de Trazabilidad",
+      description:
+        "Módulo de trazabilidad de productos para empresa industrial. Registro de lote, proveedor, procesos y destino final. Incluye escaneo QR y dashboards de KPIs en tiempo real.",
+      type: "Web App",
+      year: "2022",
+      tags: [
+        { name: "Vue.js", icon: "vuejs" },
+        { name: "Flask", icon: "flask" },
+        { name: "PostgreSQL", icon: "postgresql" },
+      ],
+    },
+  ],
+  en: [
+    {
+      title: "Customer Lead Collector",
+      description:
+        "Commercial prospecting automation tool. Extracts businesses from Google Maps using Selenium, validates emails and WhatsApp, generates personalized messages, and exports leads to Excel. Includes a dashboard with CustomTkinter.",
+      type: "Automation",
+      year: "2024",
+      tags: [
+        { name: "Python", icon: "python" },
+        { name: "Selenium", icon: "selenium" },
+        { name: "Excel" },
+      ],
+      link: "https://gitlab.com",
+    },
+    {
+      title: "Tendering Platform",
+      description:
+        "Web system for registering entry and exit of health entity officials in the IX Region. Role-based access control, real-time reporting, and JWT authentication.",
+      type: "Web App",
+      year: "2024",
+      tags: [
+        { name: "Laravel", icon: "laravel" },
+        { name: "Vue.js", icon: "vuejs" },
+        { name: "MySQL", icon: "mysql" },
+        { name: "Docker", icon: "docker" },
+      ],
+    },
+    {
+      title: "Expiration Monitor",
+      description:
+        "Dashboard for tracking expiration of legal documents and contracts. Automatic email notifications and PDF report generation. Developed with the MERN stack.",
+      type: "Dashboard",
+      year: "2023",
+      tags: [
+        { name: "React", icon: "react" },
+        { name: "Node.js", icon: "nodejs" },
+        { name: "MongoDB", icon: "mongodb" },
+      ],
+    },
+    {
+      title: "API BFF Microservices",
+      description:
+        "Backend for Frontend that centralizes multiple microservices under a single interface. Implements rate limiting, structured logging, circuit breaker, and OpenAPI documentation with Swagger.",
+      type: "Backend",
+      year: "2024",
+      tags: [
+        { name: "Node.js", icon: "nodejs" },
+        { name: "TypeScript", icon: "typescript" },
+        { name: "Docker", icon: "docker" },
+      ],
+    },
+    {
+      title: "Online Curriculum",
+      description:
+        "Personal web portfolio generated with Astro and Tailwind CSS. Automatic deployment on Netlify with CI/CD. Optimized for performance (100/100 Lighthouse) and SEO.",
+      type: "Frontend",
+      year: "2023",
+      tags: [
+        { name: "Astro", icon: "astro" },
+        { name: "TailwindCSS", icon: "tailwindcss" },
+      ],
+    },
+    {
+      title: "Traceability System",
+      description:
+        "Product traceability module for an industrial company. Lot, supplier, process, and final destination tracking. Includes QR scanning and real-time KPI dashboards.",
+      type: "Web App",
+      year: "2022",
+      tags: [
+        { name: "Vue.js", icon: "vuejs" },
+        { name: "Flask", icon: "flask" },
+        { name: "PostgreSQL", icon: "postgresql" },
+      ],
+    },
+  ],
+};
+
+const projects = projectsData[lang];
+
+const typeColors: Record<string, string> = {
+  Automatización: "#7C6B4E",
+  Automation: "#7C6B4E",
+  "Web App": "#5A7D6B",
+  Dashboard: "#4E6B7C",
+  Backend: "#7C5A6B",
+  Frontend: "#6B7C4E",
+};
+---
+
+<section id="proyectos" class="section section-alt">
+  <div class="container">
+    <p class="section-label fade-in">{lang === 'es' ? 'Portafolio' : 'Portfolio'}</p>
+    <h2 class="section-title fade-in delay-100">{lang === 'es' ? 'Proyectos Destacados' : 'Featured Projects'}</h2>
+    <div class="section-divider fade-in delay-200"></div>
+
+    <div class="projects-grid">
+      {
+        projects.map((proj, i) => (
+          <article
+            class={`project-card card fade-in delay-${Math.min(((i % 3) + 2) * 100, 500)}`}
+          >
+            <div class="project-image">
+              <div class="project-image-inner">
+                <span
+                  class="project-type-badge"
+                  style={`background: ${typeColors[proj.type] || "#6B5B47"}22; color: ${typeColors[proj.type] || "#6B5B47"}`}
+                >
+                  {proj.type}
+                </span>
+              </div>
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span class="project-year">{proj.year}</span>
+                {proj.link && (
+                  <a
+                    href={proj.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="project-link"
+                    aria-label="Ver proyecto"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="13"
+                      height="13"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
+                    {lang === 'es' ? 'Ver proyecto' : 'View project'}
+                  </a>
+                )}
+              </div>
+              <h3 class="project-title">{proj.title}</h3>
+              <p class="project-description">{proj.description}</p>
+              <div class="tag-list">
+                {proj.tags.map((t) => (
+                  <span class="tech-chip">
+                    {t.icon && (
+                      <img
+                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-original.svg`}
+                        alt={t.name}
+                        class="tech-icon"
+                        onerror={`this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-plain.svg'`}
+                      />
+                    )}
+                    {t.name}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+
+  .project-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .project-image {
+    aspect-ratio: 16/9;
+    background: linear-gradient(
+      135deg,
+      var(--color-surface-alt) 0%,
+      var(--color-border) 100%
+    );
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-image::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 10px,
+      rgba(107, 91, 71, 0.04) 10px,
+      rgba(107, 91, 71, 0.04) 11px
+    );
+  }
+
+  .project-image-inner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 12px;
+  }
+
+  .project-type-badge {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .project-body {
+    padding: 22px 24px 24px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .project-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .project-year {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.72rem;
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: opacity 0.2s;
+  }
+
+  .project-link:hover {
+    opacity: 0.7;
+  }
+
+  .project-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .project-description {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    line-height: 1.7;
+    flex: 1;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-surface);
+    border: 1px solid var(--color-bg);
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .tech-icon {
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
+  }
+
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 600px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

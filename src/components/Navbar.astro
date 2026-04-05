@@ -1,0 +1,264 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+import { routes } from '../i18n/ui';
+import ThemeToggle from './ThemeToggle.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+
+const pathname = Astro.url.pathname;
+
+const navLinks = [
+  { href: translatePath('/experiencia'), label: t('nav.experiencia') },
+  { href: translatePath('/proyectos'), label: t('nav.proyectos') },
+  { href: translatePath('/habilidades'), label: t('nav.habilidades') },
+  { href: translatePath('/sobre-mi'), label: t('nav.sobre-mi') },
+  { href: translatePath('/contacto'), label: t('nav.contacto') },
+];
+
+const otherLang = lang === 'es' ? 'en' : 'es';
+const currentPath = pathname.replace(`/${lang}`, '');
+const cleanPath = currentPath.replace(/^\//, '');
+const routeKey = Object.keys(routes[lang]).find(key => routes[lang][key as keyof typeof routes[typeof lang]] === (cleanPath || 'index'));
+const langSwitcherUrl = routeKey 
+  ? `/${otherLang}/${routes[otherLang as keyof typeof routes][routeKey as keyof typeof routes[typeof lang]]}`.replace(/\/$/, '') || `/${otherLang}/`
+  : `/${otherLang}/`;
+---
+
+<header id="navbar">
+  <div class="container">
+    <a href={translatePath('/')} class="logo">
+      <span class="logo-name">Eliacer Fuentealba</span>
+      <span class="logo-title">{t('hero.title')}</span>
+    </a>
+
+    <nav class="nav-links">
+      {navLinks.map(link => (
+        <a href={link.href} class={`nav-link ${pathname === link.href ? 'active' : ''}`}>{link.label}</a>
+      ))}
+    </nav>
+
+    <div class="nav-actions">
+      <a href={langSwitcherUrl} class="lang-switcher">
+        {lang === 'es' ? 'EN' : 'ES'}
+      </a>
+      
+      <ThemeToggle />
+      
+      <a href="/CV_ELIACER_FUENTEALBA.pdf" class="btn btn-outline btn-sm" download>
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        CV
+      </a>
+    </div>
+
+    <!-- Mobile toggle -->
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <!-- Mobile nav -->
+  <div class="mobile-nav" id="mobileNav">
+    {navLinks.map(link => (
+      <a href={link.href} class={`mobile-link ${pathname === link.href ? 'active' : ''}`}>{link.label}</a>
+    ))}
+    <div style="padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border); margin-top: 8px;">
+      <span style="font-size: 0.85rem; color: var(--color-muted);">{lang === 'es' ? 'Tema' : 'Theme'}</span>
+      <ThemeToggle />
+    </div>
+    <div style="padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--color-border);">
+      <span style="font-size: 0.85rem; color: var(--color-muted);">{lang === 'es' ? 'Idioma' : 'Language'}</span>
+      <a href={langSwitcherUrl} style="font-size: 0.85rem; color: var(--color-accent); font-weight: 600; text-decoration: none;">
+        {lang === 'es' ? 'English (EN)' : 'Español (ES)'}
+      </a>
+    </div>
+    <a href="/CV_ELIACER_FUENTEALBA.pdf" class="btn btn-primary" style="margin-top:8px; justify-content:center;" download>{t('nav.descargar_cv')}</a>
+  </div>
+</header>
+
+<style>
+  #navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: var(--color-navbar-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: box-shadow 0.3s ease;
+  }
+
+  #navbar.scrolled {
+    box-shadow: 0 4px 20px rgba(107, 91, 71, 0.08);
+  }
+
+  #navbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    gap: 32px;
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    text-decoration: none;
+    gap: 2px;
+  }
+
+  .logo-name {
+    font-family: var(--font-serif);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .logo-title {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-link {
+    padding: 6px 14px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-muted);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: color 0.2s, background 0.2s;
+  }
+
+  .nav-link:hover,
+  .nav-link.active {
+    color: var(--color-accent);
+    background: var(--color-surface-alt);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lang-switcher {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-muted);
+    text-decoration: none;
+    padding: 4px 8px;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .lang-switcher:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-surface-alt);
+  }
+
+  .btn-sm {
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .menu-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    border-radius: 2px;
+    transition: all 0.25s ease;
+  }
+
+  .mobile-nav {
+    display: none;
+    flex-direction: column;
+    padding: 16px 24px 20px;
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+    gap: 4px;
+  }
+
+  .mobile-link {
+    padding: 10px 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.2s;
+  }
+
+  .mobile-link:hover {
+    background: var(--color-surface-alt);
+    color: var(--color-accent);
+  }
+
+  .mobile-nav.open {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .nav-links,
+    .btn-sm {
+      display: none;
+    }
+    .menu-toggle {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    // Scrolled class
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar?.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile menu toggle
+    const toggle = document.getElementById('menuToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    
+    // Add click event logic avoiding duplicates
+    toggle?.addEventListener('click', () => {
+      mobileNav?.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    mobileNav?.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => mobileNav?.classList.remove('open'));
+    });
+  });
+</script>

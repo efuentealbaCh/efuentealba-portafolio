@@ -1,0 +1,277 @@
+---
+import { getLangFromUrl, useTranslations, useTranslatedPath } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const translatePath = useTranslatedPath(lang);
+---
+
+<section id="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-text fade-in">
+        <p class="hero-eyebrow">
+          <span class="dot"></span> {t('hero.available')}
+        </p>
+        <h1 class="hero-name">Eliacer<br /><span>Fuentealba</span></h1>
+        <p class="hero-role">{t('hero.title')}</p>
+        <p class="hero-bio">
+          {t('hero.description')}
+        </p>
+        <div class="hero-cta fade-in delay-200">
+          <a href={translatePath('/proyectos')} class="btn btn-primary">{t('hero.view_projects')}</a>
+          <a href={translatePath('/contacto')} class="btn btn-outline">{t('hero.contact_me')}</a>
+        </div>
+      </div>
+
+      <div class="hero-visual fade-in delay-300">
+        <div class="hero-card">
+          <div class="hero-stat">
+            <span class="stat-num">4+</span>
+            <span class="stat-label">{t('hero.stat.years')}</span>
+          </div>
+          <div class="divider-v"></div>
+          <div class="hero-stat">
+            <span class="stat-num">5</span>
+            <span class="stat-label">{t('hero.stat.teams')}</span>
+          </div>
+          <div class="divider-v"></div>
+          <div class="hero-stat">
+            <span class="stat-num">10+</span>
+            <span class="stat-label">{t('hero.stat.techs')}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 120px 0 80px;
+    background: var(--color-bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #hero::before {
+    content: "";
+    position: absolute;
+    top: -200px;
+    right: -200px;
+    width: 600px;
+    height: 600px;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  #hero::after {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 400px;
+    height: 400px;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .hero-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 20px;
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 0 3px rgba(74, 222, 128, 0.2);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.05);
+    }
+  }
+
+  .hero-name {
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    margin-bottom: 12px;
+    color: var(--color-text);
+  }
+
+  .hero-name span {
+    color: var(--color-accent);
+  }
+
+  .hero-role {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 24px;
+  }
+
+  .hero-bio {
+    font-size: 1.05rem;
+    color: var(--color-muted);
+    max-width: 480px;
+    line-height: 1.8;
+    margin-bottom: 36px;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .hero-visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  .hero-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 36px 32px;
+    display: flex;
+    gap: 0;
+    box-shadow: 0 8px 32px rgba(107, 91, 71, 0.08);
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 0 32px;
+  }
+
+  .hero-stat:first-child {
+    padding-left: 0;
+  }
+  .hero-stat:last-child {
+    padding-right: 0;
+  }
+
+  .stat-num {
+    font-family: var(--font-serif);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .divider-v {
+    width: 1px;
+    background: var(--color-border);
+    align-self: stretch;
+  }
+
+  .scroll-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 64px;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .scroll-line {
+    width: 48px;
+    height: 1px;
+    background: var(--color-muted);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--color-accent);
+    animation: slide 2s ease-in-out infinite;
+  }
+
+  @keyframes slide {
+    to {
+      left: 100%;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .hero-visual {
+      justify-content: flex-start;
+    }
+    .hero-card {
+      padding: 24px 20px;
+    }
+    .hero-stat {
+      padding: 0 20px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .hero-card {
+      flex-direction: column;
+      gap: 20px;
+    }
+    .divider-v {
+      width: 100%;
+      height: 1px;
+    }
+    .hero-stat {
+      padding: 0;
+      flex-direction: row;
+      gap: 12px;
+      align-items: center;
+    }
+    .stat-num {
+      font-size: 1.8rem;
+    }
+  }
+</style>
