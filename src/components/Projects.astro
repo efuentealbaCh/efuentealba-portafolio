@@ -12,10 +12,12 @@ interface TechTag {
 interface Project {
   title: string;
   description: string;
+  longDescription: string;
   type: string;
   year: string;
   tags: TechTag[];
   link?: string;
+  images: string[];
 }
 
 const projectsData: Record<string, Project[]> = {
@@ -23,74 +25,108 @@ const projectsData: Record<string, Project[]> = {
     {
       title: "Captador de Clientes",
       description:
-        "Herramienta de automatización de prospección comercial. Extrae negocios desde Google Maps con Selenium, valida correos y WhatsApp, genera mensajes personalizados y exporta leads a Excel. Incluye dashboard con CustomTkinter.",
+        "Herramienta de automatización de prospección comercial con Selenium y Python.",
+      longDescription:
+        "Herramienta de automatización de prospección comercial. Extrae negocios desde Google Maps con Selenium, valida correos y WhatsApp, genera mensajes personalizados y exporta leads a Excel. Incluye dashboard con CustomTkinter para visualizar el pipeline de prospectos en tiempo real.",
       type: "Automatización",
       year: "2024",
       tags: [
-        { name: "Python", icon: "python" },
-        { name: "Selenium", icon: "selenium" },
+        { name: "Python", icon: "python-plain" },
+        { name: "Selenium", icon: "selenium-original" },
         { name: "Excel" },
       ],
       link: "https://gitlab.com",
+      images: [
+        "https://picsum.photos/seed/proj1a/900/500",
+        "https://picsum.photos/seed/proj1b/900/500",
+      ],
     },
     {
       title: "Plataforma de Licitaciones",
       description:
-        "Sistema web para registrar entradas y salidas de funcionarios de entidades de salud en la IX Región. Control de acceso por roles, reportería en tiempo real y autenticación JWT.",
+        "Sistema web para control de acceso de funcionarios de entidades de salud.",
+      longDescription:
+        "Sistema web para registrar entradas y salidas de funcionarios de entidades de salud en la IX Región. Ofrece control de acceso granular por roles, reportería en tiempo real y autenticación JWT. Construido con Laravel en el backend y Vue.js en el frontend, desplegado en Docker sobre un VPS.",
       type: "Web App",
       year: "2024",
       tags: [
-        { name: "Laravel", icon: "laravel" },
-        { name: "Vue.js", icon: "vuejs" },
+        { name: "Laravel", icon: "laravel-original" },
+        { name: "Vue.js", icon: "vuejs-plain" },
         { name: "MySQL", icon: "mysql-original" },
-        { name: "Docker", icon: "docker" },
+        { name: "Docker", icon: "docker-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj2a/900/500",
+        "https://picsum.photos/seed/proj2b/900/500",
+        "https://picsum.photos/seed/proj2c/900/500",
       ],
     },
     {
       title: "Monitor de Vencimientos",
       description:
-        "Dashboard para seguimiento de vencimientos de documentos legales y contratos. Notificaciones automáticas por correo y generación de reportes PDF. Desarrollado con stack MERN.",
+        "Dashboard MERN para seguimiento de vencimientos de documentos legales y contratos.",
+      longDescription:
+        "Dashboard para seguimiento de vencimientos de documentos legales y contratos. Notificaciones automáticas por correo cuando un documento está próximo a vencer y generación de reportes PDF personalizados. Desarrollado con stack MERN (MongoDB, Express, React, Node.js).",
       type: "Dashboard",
       year: "2023",
       tags: [
-        { name: "React", icon: "react" },
-        { name: "Node.js", icon: "nodejs" },
-        { name: "MongoDB", icon: "mongodb" },
+        { name: "React", icon: "react-original" },
+        { name: "Node.js", icon: "nodejs-plain" },
+        { name: "MongoDB", icon: "mongodb-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj3a/900/500",
+        "https://picsum.photos/seed/proj3b/900/500",
       ],
     },
     {
       title: "API BFF Microservicios",
       description:
-        "Backend for Frontend que centraliza múltiples microservicios bajo una sola interfaz. Implementa rate limiting, logging estructurado, circuit breaker y documentación OpenAPI con Swagger.",
+        "Backend For Frontend que centraliza múltiples microservicios bajo una sola interfaz.",
+      longDescription:
+        "Backend for Frontend que centraliza múltiples microservicios bajo una sola interfaz REST. Implementa rate limiting por IP, logging estructurado con Winston, manejo de errores centralizado con circuit breaker y documentación OpenAPI interactiva con Swagger UI.",
       type: "Backend",
       year: "2024",
       tags: [
-        { name: "Node.js", icon: "nodejs" },
-        { name: "TypeScript", icon: "typescript" },
-        { name: "Docker", icon: "docker" },
+        { name: "Node.js", icon: "nodejs-plain" },
+        { name: "TypeScript", icon: "typescript-plain" },
+        { name: "Docker", icon: "docker-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj4a/900/500",
+        "https://picsum.photos/seed/proj4b/900/500",
       ],
     },
     {
       title: "Currículum en Línea",
       description:
-        "Portafolio web personal generado con Astro y Tailwind CSS. Deploy automático en Netlify con CI/CD. Optimizado para rendimiento (100/100 Lighthouse) y SEO.",
+        "Portafolio web generado con Astro. Deploy automático en Netlify con CI/CD.",
+      longDescription:
+        "Portafolio web personal generado con Astro y Tailwind CSS. Deploy automático en Netlify con CI/CD desde GitHub. Soporte i18n (Español/Inglés), tema claro/oscuro, y animaciones CSS. Optimizado para rendimiento (100/100 Lighthouse) y SEO.",
       type: "Frontend",
-      year: "2023",
+      year: "2025",
       tags: [
-        { name: "Astro", icon: "astro" },
-        { name: "TailwindCSS", icon: "tailwindcss" },
+        { name: "Astro", icon: "astro-plain" },
+        { name: "TailwindCSS", icon: "tailwindcss-original" },
       ],
+      images: ["https://picsum.photos/seed/proj5a/900/500"],
     },
     {
       title: "Sistema de Trazabilidad",
       description:
-        "Módulo de trazabilidad de productos para empresa industrial. Registro de lote, proveedor, procesos y destino final. Incluye escaneo QR y dashboards de KPIs en tiempo real.",
+        "Módulo de trazabilidad de productos con escaneo QR y dashboards de KPIs.",
+      longDescription:
+        "Módulo de trazabilidad de productos para empresa industrial. Registro de lote, proveedor, procesos y destino final de cada producto. Incluye escaneo QR para seguimiento mobile y dashboards de KPIs en tiempo real. Construido con Vue.js y Flask, con base de datos PostgreSQL.",
       type: "Web App",
       year: "2022",
       tags: [
-        { name: "Vue.js", icon: "vuejs" },
-        { name: "Flask", icon: "flask" },
-        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "Vue.js", icon: "vuejs-plain" },
+        { name: "Flask", icon: "flask-original" },
+        { name: "PostgreSQL", icon: "postgresql-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj6a/900/500",
+        "https://picsum.photos/seed/proj6b/900/500",
       ],
     },
   ],
@@ -98,74 +134,107 @@ const projectsData: Record<string, Project[]> = {
     {
       title: "Customer Lead Collector",
       description:
-        "Commercial prospecting automation tool. Extracts businesses from Google Maps using Selenium, validates emails and WhatsApp, generates personalized messages, and exports leads to Excel. Includes a dashboard with CustomTkinter.",
+        "Commercial prospecting automation tool using Selenium and Python.",
+      longDescription:
+        "Commercial prospecting automation tool. Extracts businesses from Google Maps using Selenium, validates emails and WhatsApp contacts, generates personalized messages, and exports leads to Excel. Includes a CustomTkinter dashboard to visualize the prospect pipeline in real time.",
       type: "Automation",
       year: "2024",
       tags: [
-        { name: "Python", icon: "python" },
-        { name: "Selenium", icon: "selenium" },
+        { name: "Python", icon: "python-plain" },
+        { name: "Selenium", icon: "selenium-original" },
         { name: "Excel" },
       ],
       link: "https://gitlab.com",
+      images: [
+        "https://picsum.photos/seed/proj1a/900/500",
+        "https://picsum.photos/seed/proj1b/900/500",
+      ],
     },
     {
       title: "Tendering Platform",
-      description:
-        "Web system for registering entry and exit of health entity officials in the IX Region. Role-based access control, real-time reporting, and JWT authentication.",
+      description: "Web system for access control of health entity officials.",
+      longDescription:
+        "Web system for registering entry and exit of health entity officials in the IX Region. Offers granular role-based access control, real-time reporting, and JWT authentication. Built with Laravel on the backend and Vue.js on the frontend, deployed via Docker on a VPS.",
       type: "Web App",
       year: "2024",
       tags: [
-        { name: "Laravel", icon: "laravel" },
-        { name: "Vue.js", icon: "vuejs" },
+        { name: "Laravel", icon: "laravel-original" },
+        { name: "Vue.js", icon: "vuejs-plain" },
         { name: "MySQL", icon: "mysql-original" },
-        { name: "Docker", icon: "docker" },
+        { name: "Docker", icon: "docker-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj2a/900/500",
+        "https://picsum.photos/seed/proj2b/900/500",
+        "https://picsum.photos/seed/proj2c/900/500",
       ],
     },
     {
       title: "Expiration Monitor",
       description:
-        "Dashboard for tracking expiration of legal documents and contracts. Automatic email notifications and PDF report generation. Developed with the MERN stack.",
+        "MERN dashboard for tracking expiration of legal documents and contracts.",
+      longDescription:
+        "Dashboard for tracking expiration of legal documents and contracts. Automatic email notifications when a document is about to expire, and generation of custom PDF reports. Developed with the MERN stack (MongoDB, Express, React, Node.js).",
       type: "Dashboard",
       year: "2023",
       tags: [
-        { name: "React", icon: "react" },
-        { name: "Node.js", icon: "nodejs" },
-        { name: "MongoDB", icon: "mongodb" },
+        { name: "React", icon: "react-original" },
+        { name: "Node.js", icon: "nodejs-plain" },
+        { name: "MongoDB", icon: "mongodb-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj3a/900/500",
+        "https://picsum.photos/seed/proj3b/900/500",
       ],
     },
     {
       title: "API BFF Microservices",
       description:
-        "Backend for Frontend that centralizes multiple microservices under a single interface. Implements rate limiting, structured logging, circuit breaker, and OpenAPI documentation with Swagger.",
+        "Backend for Frontend centralizing multiple microservices under a single interface.",
+      longDescription:
+        "Backend for Frontend that centralizes multiple microservices under a single REST interface. Implements per-IP rate limiting, structured logging with Winston, centralized error handling with circuit breaker, and interactive OpenAPI documentation with Swagger UI.",
       type: "Backend",
       year: "2024",
       tags: [
-        { name: "Node.js", icon: "nodejs" },
-        { name: "TypeScript", icon: "typescript" },
-        { name: "Docker", icon: "docker" },
+        { name: "Node.js", icon: "nodejs-plain" },
+        { name: "TypeScript", icon: "typescript-plain" },
+        { name: "Docker", icon: "docker-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj4a/900/500",
+        "https://picsum.photos/seed/proj4b/900/500",
       ],
     },
     {
       title: "Online Curriculum",
       description:
-        "Personal web portfolio generated with Astro and Tailwind CSS. Automatic deployment on Netlify with CI/CD. Optimized for performance (100/100 Lighthouse) and SEO.",
+        "Personal web portfolio built with Astro. Automatic Netlify CI/CD deployment.",
+      longDescription:
+        "Personal web portfolio generated with Astro and Tailwind CSS. Automatic deployment on Netlify with CI/CD from GitHub. Supports i18n (Spanish/English), light/dark mode, and CSS animations. Optimized for performance (100/100 Lighthouse) and SEO.",
       type: "Frontend",
-      year: "2023",
+      year: "2025",
       tags: [
-        { name: "Astro", icon: "astro" },
-        { name: "TailwindCSS", icon: "tailwindcss" },
+        { name: "Astro", icon: "astro-plain" },
+        { name: "TailwindCSS", icon: "tailwindcss-original" },
       ],
+      images: ["https://picsum.photos/seed/proj5a/900/500"],
     },
     {
       title: "Traceability System",
       description:
-        "Product traceability module for an industrial company. Lot, supplier, process, and final destination tracking. Includes QR scanning and real-time KPI dashboards.",
+        "Product traceability module with QR scanning and real-time KPI dashboards.",
+      longDescription:
+        "Product traceability module for an industrial company. Tracks lot, supplier, processes, and final destination for each product. Includes QR scanning for mobile tracking and real-time KPI dashboards. Built with Vue.js and Flask, with a PostgreSQL database.",
       type: "Web App",
       year: "2022",
       tags: [
-        { name: "Vue.js", icon: "vuejs" },
-        { name: "Flask", icon: "flask" },
-        { name: "PostgreSQL", icon: "postgresql" },
+        { name: "Vue.js", icon: "vuejs-plain" },
+        { name: "Flask", icon: "flask-original" },
+        { name: "PostgreSQL", icon: "postgresql-plain" },
+      ],
+      images: [
+        "https://picsum.photos/seed/proj6a/900/500",
+        "https://picsum.photos/seed/proj6b/900/500",
       ],
     },
   ],
@@ -185,8 +254,12 @@ const typeColors: Record<string, string> = {
 
 <section id="proyectos" class="section section-alt">
   <div class="container">
-    <p class="section-label fade-in">{lang === 'es' ? 'Portafolio' : 'Portfolio'}</p>
-    <h2 class="section-title fade-in delay-100">{lang === 'es' ? 'Proyectos Destacados' : 'Featured Projects'}</h2>
+    <p class="section-label fade-in">
+      {lang === "es" ? "Portafolio" : "Portfolio"}
+    </p>
+    <h2 class="section-title fade-in delay-100">
+      {lang === "es" ? "Proyectos Destacados" : "Featured Projects"}
+    </h2>
     <div class="section-divider fade-in delay-200"></div>
 
     <div class="projects-grid">
@@ -194,6 +267,18 @@ const typeColors: Record<string, string> = {
         projects.map((proj, i) => (
           <article
             class={`project-card card fade-in delay-${Math.min(((i % 3) + 2) * 100, 500)}`}
+            data-project={JSON.stringify({
+              title: proj.title,
+              longDescription: proj.longDescription,
+              type: proj.type,
+              year: proj.year,
+              tags: proj.tags,
+              link: proj.link || null,
+              images: proj.images,
+            })}
+            tabindex="0"
+            role="button"
+            aria-label={`${lang === "es" ? "Ver detalles de" : "View details for"} ${proj.title}`}
           >
             <div class="project-image">
               <div class="project-image-inner">
@@ -204,35 +289,31 @@ const typeColors: Record<string, string> = {
                   {proj.type}
                 </span>
               </div>
+              <div class="project-hover-overlay">
+                <span class="project-hover-cta">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <>
+                      <circle cx="11" cy="11" r="8" />
+                      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                    </>
+                  </svg>
+                  {lang === "es" ? "Ver detalle" : "View detail"}
+                </span>
+              </div>
             </div>
             <div class="project-body">
               <div class="project-meta">
                 <span class="project-year">{proj.year}</span>
-                {proj.link && (
-                  <a
-                    href={proj.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="project-link"
-                    aria-label="Ver proyecto"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="13"
-                      height="13"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <line x1="7" y1="17" x2="17" y2="7" />
-                      <polyline points="7 7 17 7 17 17" />
-                    </svg>
-                    {lang === 'es' ? 'Ver proyecto' : 'View project'}
-                  </a>
-                )}
               </div>
               <h3 class="project-title">{proj.title}</h3>
               <p class="project-description">{proj.description}</p>
@@ -241,10 +322,11 @@ const typeColors: Record<string, string> = {
                   <span class="tech-chip">
                     {t.icon && (
                       <img
-                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-original.svg`}
+                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon.split('-')[0]}/${t.icon}.svg`}
                         alt={t.name}
                         class="tech-icon"
-                        onerror={`this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-plain.svg'`}
+                        crossorigin="anonymous"
+                        onerror="this.style.display='none'"
                       />
                     )}
                     {t.name}
@@ -259,17 +341,144 @@ const typeColors: Record<string, string> = {
   </div>
 </section>
 
+<!-- Project Detail Modal -->
+<div
+  id="project-modal"
+  class="proj-modal-overlay"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+>
+  <div class="proj-modal-content">
+    <button
+      id="proj-modal-close"
+      class="proj-modal-close"
+      aria-label={lang === "es" ? "Cerrar" : "Close"}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        ><line x1="18" y1="6" x2="6" y2="18"></line><line
+          x1="6"
+          y1="6"
+          x2="18"
+          y2="18"></line></svg
+      >
+    </button>
+
+    <!-- Carousel -->
+    <div class="proj-carousel" id="proj-carousel">
+      <div class="proj-carousel-track" id="proj-carousel-track"></div>
+      <button
+        class="carousel-btn carousel-prev"
+        id="carousel-prev"
+        aria-label="Anterior"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><polyline points="15 18 9 12 15 6"></polyline></svg
+        >
+      </button>
+      <button
+        class="carousel-btn carousel-next"
+        id="carousel-next"
+        aria-label="Siguiente"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          ><polyline points="9 18 15 12 9 6"></polyline></svg
+        >
+      </button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="proj-modal-body">
+      <div class="proj-modal-header">
+        <div>
+          <span class="proj-modal-badge" id="proj-modal-badge"></span>
+          <h2 class="proj-modal-title" id="proj-modal-title"></h2>
+          <span class="proj-modal-year" id="proj-modal-year"></span>
+        </div>
+        <a
+          id="proj-modal-link"
+          class="proj-modal-link-btn"
+          href="#"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            ><line x1="7" y1="17" x2="17" y2="7"></line><polyline
+              points="7 7 17 7 17 17"></polyline></svg
+          >
+          {lang === "es" ? "Ver proyecto" : "View project"}
+        </a>
+      </div>
+      <p class="proj-modal-description" id="proj-modal-desc"></p>
+      <div class="proj-modal-stack">
+        <p class="proj-modal-stack-title">
+          {lang === "es" ? "Stack Tecnológico" : "Tech Stack"}
+        </p>
+        <div class="proj-modal-tags" id="proj-modal-tags"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <style>
+  /* ---- GRID ---- */
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 28px;
   }
 
+  /* ---- CARD ---- */
   .project-card {
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    cursor: pointer;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.15);
   }
 
   .project-image {
@@ -303,6 +512,33 @@ const typeColors: Record<string, string> = {
     align-items: flex-start;
     justify-content: flex-start;
     padding: 12px;
+    z-index: 1;
+  }
+
+  .project-hover-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    z-index: 2;
+  }
+
+  .project-card:hover .project-hover-overlay {
+    opacity: 1;
+  }
+
+  .project-hover-cta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #fff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
   }
 
   .project-type-badge {
@@ -333,22 +569,6 @@ const typeColors: Record<string, string> = {
     font-size: 0.7rem;
     color: var(--color-muted);
     letter-spacing: 0.08em;
-  }
-
-  .project-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.72rem;
-    font-family: var(--font-mono);
-    color: var(--color-accent);
-    text-decoration: none;
-    letter-spacing: 0.04em;
-    transition: opacity 0.2s;
-  }
-
-  .project-link:hover {
-    opacity: 0.7;
   }
 
   .project-title {
@@ -393,6 +613,271 @@ const typeColors: Record<string, string> = {
     object-fit: contain;
   }
 
+  /* ---- MODAL ---- */
+  .proj-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .proj-modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .proj-modal-content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 760px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    transform: translateY(24px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .proj-modal-overlay.is-open .proj-modal-content {
+    transform: translateY(0) scale(1);
+  }
+
+  .proj-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 10;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+  }
+
+  .proj-modal-close:hover {
+    background: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  /* ---- CAROUSEL ---- */
+  .proj-carousel {
+    position: relative;
+    border-radius: 24px 24px 0 0;
+    overflow: hidden;
+    aspect-ratio: 16/8;
+    background: var(--color-surface-alt);
+  }
+
+  .proj-carousel-track {
+    display: flex;
+    height: 100%;
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .proj-carousel-track img {
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #fff;
+    transition: background 0.2s ease;
+    z-index: 5;
+  }
+
+  .carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  .carousel-prev {
+    left: 14px;
+  }
+  .carousel-next {
+    right: 14px;
+  }
+
+  .carousel-dots {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 5;
+  }
+
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease;
+    cursor: pointer;
+    border: none;
+  }
+
+  .carousel-dot.active {
+    background: #fff;
+    transform: scale(1.3);
+  }
+
+  /* ---- MODAL BODY ---- */
+  .proj-modal-body {
+    padding: 28px 32px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .proj-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .proj-modal-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .proj-modal-title {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.2;
+    margin: 0 0 4px;
+  }
+
+  .proj-modal-year {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .proj-modal-link-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    border-radius: 10px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .proj-modal-link-btn:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .proj-modal-link-btn.hidden {
+    display: none;
+  }
+
+  .proj-modal-description {
+    font-size: 0.95rem;
+    color: var(--color-muted);
+    line-height: 1.85;
+    margin: 0;
+  }
+
+  .proj-modal-stack {
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px;
+  }
+
+  .proj-modal-stack-title {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .proj-modal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .proj-modal-tags .tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--color-surface-alt);
+    border: 1.5px solid var(--color-accent-light);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+    transition: all 0.2s ease;
+  }
+
+  .proj-modal-tags .tech-chip:hover {
+    background: var(--color-bg);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.12);
+  }
+
+  .proj-modal-tags .tech-chip .tech-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* ---- RESPONSIVE ---- */
   @media (max-width: 1024px) {
     .projects-grid {
       grid-template-columns: repeat(2, 1fr);
@@ -402,5 +887,186 @@ const typeColors: Record<string, string> = {
     .projects-grid {
       grid-template-columns: 1fr;
     }
+    .proj-modal-body {
+      padding: 20px;
+    }
+    .proj-modal-title {
+      font-size: 1.2rem;
+    }
   }
 </style>
+
+<style is:global>
+  /* tech-chip must be global so it applies to elements created via JS in the modal */
+  .modal-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .modal-chip img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const modal = document.getElementById("project-modal") as HTMLElement;
+    const closeBtn = document.getElementById("proj-modal-close");
+    const track = document.getElementById("proj-carousel-track") as HTMLElement;
+    const dotsContainer = document.getElementById(
+      "carousel-dots",
+    ) as HTMLElement;
+    const prevBtn = document.getElementById("carousel-prev");
+    const nextBtn = document.getElementById("carousel-next");
+    const modalTitle = document.getElementById("proj-modal-title");
+    const modalBadge = document.getElementById("proj-modal-badge");
+    const modalYear = document.getElementById("proj-modal-year");
+    const modalDesc = document.getElementById("proj-modal-desc");
+    const modalTags = document.getElementById("proj-modal-tags");
+    const modalLink = document.getElementById(
+      "proj-modal-link",
+    ) as HTMLAnchorElement;
+
+    if (!modal) return;
+
+    let currentSlide = 0;
+    let totalSlides = 0;
+
+    function goTo(index: number) {
+      currentSlide = (index + totalSlides) % totalSlides;
+      track.style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll(".carousel-dot").forEach((d, i) => {
+        d.classList.toggle("active", i === currentSlide);
+      });
+    }
+
+    prevBtn?.addEventListener("click", () => goTo(currentSlide - 1));
+    nextBtn?.addEventListener("click", () => goTo(currentSlide + 1));
+
+    // Open modal
+    document.querySelectorAll(".project-card").forEach((card) => {
+      const open = () => {
+        const raw = card.getAttribute("data-project");
+        if (!raw) return;
+        const data = JSON.parse(raw);
+
+        // Carousel
+        track.innerHTML = "";
+        dotsContainer.innerHTML = "";
+        totalSlides = data.images.length;
+        currentSlide = 0;
+
+        data.images.forEach((src: string, i: number) => {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = `${data.title} screenshot ${i + 1}`;
+          img.loading = "lazy";
+          track.appendChild(img);
+
+          const dot = document.createElement("button");
+          dot.className = `carousel-dot${i === 0 ? " active" : ""}`;
+          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.addEventListener("click", () => goTo(i));
+          dotsContainer.appendChild(dot);
+        });
+
+        track.style.transform = "translateX(0)";
+
+        // Show/hide nav
+        const showNav = totalSlides > 1;
+        if (prevBtn)
+          (prevBtn as HTMLElement).style.display = showNav ? "flex" : "none";
+        if (nextBtn)
+          (nextBtn as HTMLElement).style.display = showNav ? "flex" : "none";
+        dotsContainer.style.display = showNav ? "flex" : "none";
+
+        // Content
+        if (modalTitle) modalTitle.textContent = data.title;
+        if (modalBadge) modalBadge.textContent = data.type;
+        if (modalYear) modalYear.textContent = data.year;
+        if (modalDesc) modalDesc.textContent = data.longDescription;
+
+        // Link
+        if (modalLink) {
+          if (data.link) {
+            modalLink.href = data.link;
+            modalLink.classList.remove("hidden");
+          } else {
+            modalLink.classList.add("hidden");
+          }
+        }
+
+        // Tags — same chip style as project cards
+        if (modalTags) {
+          modalTags.innerHTML = "";
+          data.tags.forEach((tag: { name: string; icon?: string }) => {
+            const chip = document.createElement("span");
+            chip.className = "modal-chip";
+            if (tag.icon) {
+              const iconBase = tag.icon.split("-")[0];
+              const img = document.createElement("img");
+              img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconBase}/${tag.icon}.svg`;
+              img.alt = tag.name;
+              img.crossOrigin = "anonymous";
+              img.width = 16;
+              img.height = 16;
+              img.onerror = () => { img.style.display = "none"; };
+              chip.appendChild(img);
+            }
+            chip.appendChild(document.createTextNode(tag.name));
+            modalTags.appendChild(chip);
+          });
+        }
+
+        modal.classList.add("is-open");
+        modal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      };
+
+      card.addEventListener("click", open);
+      card.addEventListener("keydown", (e) => {
+        if (
+          (e as KeyboardEvent).key === "Enter" ||
+          (e as KeyboardEvent).key === " "
+        ) {
+          e.preventDefault();
+          open();
+        }
+      });
+    });
+
+    // Close
+    const closeModal = () => {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      setTimeout(() => {
+        track.innerHTML = "";
+        dotsContainer.innerHTML = "";
+      }, 350);
+    };
+
+    closeBtn?.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) closeModal();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && modal.classList.contains("is-open"))
+        closeModal();
+      if (e.key === "ArrowLeft" && modal.classList.contains("is-open"))
+        goTo(currentSlide - 1);
+      if (e.key === "ArrowRight" && modal.classList.contains("is-open"))
+        goTo(currentSlide + 1);
+    });
+  });
+</script>
