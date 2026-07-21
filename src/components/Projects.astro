@@ -23,6 +23,40 @@ interface Project {
 const projectsData: Record<string, Project[]> = {
   es: [
     {
+      title: "Pfinance",
+      description:
+        "Aplicación web Full-Stack y PWA para la gestión integral de finanzas personales, presupuestos y gastos compartidos.",
+      longDescription:
+        "Pfinance es una plataforma integral para el control de finanzas personales y grupales. Permite registrar ingresos, gastos y transferencias entre cuentas bancarias, categorizar movimientos, fijar presupuestos con alertas visuales de consumo, definir metas de ahorro y gestionar grupos para deudas compartidas con cálculo automático de saldos. Desarrollada como una PWA instalable con autenticación JWT, tableros interactivos (Recharts), exportación de datos a Excel/PDF y despliegue en la nube.",
+      type: "Web App",
+      year: "2025",
+      link: "https://pfinance-sfnr.vercel.app/login",
+      tags: [
+        { name: "ReactJS", icon: "react-original" },
+        { name: "NestJS", icon: "nestjs-original" },
+        { name: "Vite", icon: "vite-original" },
+        { name: "TypeScript", icon: "typescript-plain" },
+        { name: "Mantine UI" },
+        { name: "React Query" },
+        { name: "PostgreSQL", icon: "postgresql-plain" },
+        { name: "Prisma ORM", icon: "prisma-original" },
+        { name: "Supabase", icon: "supabase-plain" },
+        { name: "Docker", icon: "docker-plain" },
+        { name: "Vercel", icon: "vercel-original" },
+        { name: "Render", icon: "render-plain" },
+        { name: "Git", icon: "git-plain" },
+      ],
+      images: [
+        "/images/pfinance-1.png",
+        "/images/pfinance-2.png",
+        "/images/pfinance-3.png",
+        "/images/pfinance-4.png",
+        "/images/pfinance-5.png",
+        "/images/pfinance-6.png",
+        "/images/pfinance-7.png",
+      ],
+    },
+    {
       title: "API Storage",
       description:
         "API RESTful centralizada para la gestión y almacenamiento seguro de archivos en la nube.",
@@ -170,6 +204,36 @@ const projectsData: Record<string, Project[]> = {
     },
   ],
   en: [
+    {
+      title: "Pfinance",
+      description:
+        "Full-Stack web application and PWA for personal finance management, budgeting, and shared group expenses.",
+      longDescription:
+        "Pfinance is a comprehensive platform for personal and group financial control. It enables tracking income, expenses, and bank account transfers, categorizing movements, establishing budgets with visual consumption alerts, setting savings goals, and managing group shared debts with automated balance settlement. Built as an installable PWA with JWT authentication, interactive dashboards (Recharts), Excel/PDF data export, and cloud deployment.",
+      type: "Web App",
+      year: "2025",
+      link: "https://pfinance-sfnr.vercel.app/login",
+      tags: [
+        { name: "ReactJS", icon: "react-original" },
+        { name: "NestJS", icon: "nestjs-original" },
+        { name: "Vite", icon: "vite-original" },
+        { name: "TypeScript", icon: "typescript-plain" },
+        { name: "Mantine UI" },
+        { name: "React Query" },
+        { name: "PostgreSQL", icon: "postgresql-plain" },
+        { name: "Prisma ORM", icon: "prisma-original" },
+        { name: "Supabase", icon: "supabase-plain" },
+        { name: "Docker", icon: "docker-plain" },
+        { name: "Vercel", icon: "vercel-original" },
+        { name: "Render", icon: "render-plain" },
+        { name: "Git", icon: "git-plain" },
+      ],
+      images: [
+        "/images/pfinance-1.png",
+        "/images/pfinance-2.png",
+        "/images/pfinance-3.png",
+      ],
+    },
     {
       title: "API Storage",
       description:
@@ -393,6 +457,32 @@ const typeColors: Record<string, string> = {
             <div class="project-body">
               <div class="project-meta">
                 <span class="project-year">{proj.year}</span>
+                {proj.link && (
+                  <a
+                    href={proj.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="card-demo-btn"
+                    onclick="event.stopPropagation()"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                    {lang === "es" ? "Ver demo" : "View demo"}
+                  </a>
+                )}
               </div>
               <h3 class="project-title">{proj.title}</h3>
               <p class="project-description">{proj.description}</p>
@@ -522,7 +612,7 @@ const typeColors: Record<string, string> = {
             ><line x1="7" y1="17" x2="17" y2="7"></line><polyline
               points="7 7 17 7 17 17"></polyline></svg
           >
-          {lang === "es" ? "Ver proyecto" : "View project"}
+          {lang === "es" ? "Ver demo" : "View demo"}
         </a>
       </div>
       <p class="proj-modal-description" id="proj-modal-desc"></p>
@@ -640,7 +730,30 @@ const typeColors: Record<string, string> = {
   .project-meta {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 12px;
+  }
+
+  .card-demo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: var(--color-accent, #5a7d6b);
+    text-decoration: none;
+    padding: 3px 9px;
+    border: 1px solid var(--color-accent, #5a7d6b);
+    border-radius: 6px;
+    transition: all 0.2s ease;
+    margin-left: auto;
+    z-index: 3;
+  }
+
+  .card-demo-btn:hover {
+    background: var(--color-accent, #5a7d6b);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
   .project-year {
