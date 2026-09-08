@@ -7,7 +7,14 @@ const t = useTranslations(lang);
 interface TechTag {
   name: string;
   icon?: string;
+  customIcon?: string; // 'claude' | 'gemini'
 }
+
+// Custom SVG icons for AI tools not in devicons
+const customIcons: Record<string, string> = {
+  claude: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.6-.097L.898 12.5l-.898-.324.898-.274 1.875-.122 1.6-.097 2.339-.121 2.698-.074.79-.048h.229l.08-.128-.08-.229-4.72-2.647-.899-.582-1.117-1.016-.87-1.016-.267-.945.267-.218.945.267 1.016.87 1.016 1.117.582.899 4.72 2.647.23.08.127-.08V9.2l.049-.79.073-2.698.097-2.339.097-1.6.122-1.875L12.5.898l.274-.898.324.898.122 1.875.097 1.6.097 2.339.073 2.698.049.79v.229l.127.08.23-.08 2.647-4.72.582-.899 1.016-1.117 1.016-.87.945-.267.218.267-.267.945-.87 1.016-1.016 1.117-.582.899-2.647 4.72-.08.23.08.127H15.8l.79.049 2.698.073 2.339.097 1.6.097 1.875.122.898.274-.898.324-1.875.122-1.6.097-2.339.097-2.698.073-.79.049h-.229l-.08.127.08.23 4.72 2.647.899.582 1.117 1.016.87 1.016.267.945-.218.267-.945-.267-1.016-.87-1.016-1.117-.582-.899-4.72-2.647-.23-.08-.127.08V15.8l-.049.79-.073 2.698-.097 2.339-.097 1.6-.122 1.875-.324.898-.274-.898-.122-1.875-.097-1.6-.097-2.339-.073-2.698-.049-.79V15.8l-.127-.08-.23.08-2.647 4.72-.582.899-1.016 1.117-1.016.87-.945.267-.267-.218.267-.945.87-1.016 1.016-1.117.582-.899 2.647-4.72.08-.23-.08-.127H8.2l-.79-.049-2.698-.073-2.339-.097-1.6-.097-1.875-.122-.898-.324z"/></svg>`,
+  gemini: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A14.304 14.304 0 000 12 14.304 14.304 0 0012 0a14.305 14.305 0 0012 12 14.305 14.305 0 00-12 12"/></svg>`,
+};
 
 interface Project {
   title: string;
@@ -27,7 +34,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Aplicación web Full-Stack y PWA para la gestión integral de finanzas personales, presupuestos y gastos compartidos.",
       longDescription:
-        "Pfinance es una plataforma integral para el control de finanzas personales y grupales. Permite registrar ingresos, gastos y transferencias entre cuentas bancarias, categorizar movimientos, fijar presupuestos con alertas visuales de consumo, definir metas de ahorro y gestionar grupos para deudas compartidas con cálculo automático de saldos. Desarrollada como una PWA instalable con autenticación JWT, tableros interactivos (Recharts), exportación de datos a Excel/PDF y despliegue en la nube.",
+        "Pfinance es una plataforma integral para el control de finanzas personales y grupales. Permite registrar ingresos, gastos y transferencias entre cuentas bancarias, categorizar movimientos, fijar presupuestos con alertas visuales de consumo, definir metas de ahorro y gestionar grupos para deudas compartidas con cálculo automático de saldos. Desarrollada como una PWA instalable con autenticación JWT, tableros interactivos (Recharts), exportación de datos a Excel/PDF y despliegue en la nube.\n\n⚡ Asistida por IA — Claude Code fue pieza central en este proyecto: aceleró el desarrollo mediante vibe coding responsable, sugiriendo la arquitectura de módulos y la estructura del estado global desde etapas tempranas. Además, se empleó activamente en pruebas de seguridad del backend (NestJS + Supabase), generando escenarios de ataque, validando guards de autenticación JWT y asegurando que los endpoints críticos estuvieran correctamente protegidos frente a inyección SQL y accesos no autorizados.",
       type: "Web App",
       year: "2025",
       link: "https://pfinance-sfnr.vercel.app/login",
@@ -45,6 +52,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Vercel", icon: "vercel-original" },
         { name: "Render", icon: "render-plain" },
         { name: "Git", icon: "git-plain" },
+        { name: "Claude Code", customIcon: "claude" },
       ],
       images: [
         "/images/pfinance-1.png",
@@ -61,7 +69,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "API RESTful centralizada para la gestión y almacenamiento seguro de archivos en la nube.",
       longDescription:
-        "Diseño y desarrollo de una API RESTful escalable orientada a la centralización del almacenamiento documental. Este proyecto se estructuró en dos versiones sucesivas: una inicial implementada con PHP y Lumen, y una segunda versión desarrollada en Java con Spring Boot para maximizar el rendimiento. Actúa como puente principal para la modernización tecnológica de la institución, migrando la lógica de almacenamiento de los sistemas informáticos heredados hacia una arquitectura robusta basada en la nube.",
+        "Diseño y desarrollo de una API RESTful escalable orientada a la centralización del almacenamiento documental. Este proyecto se estructuró en dos versiones sucesivas: una inicial implementada con PHP y Lumen, y una segunda versión desarrollada en Java con Spring Boot para maximizar el rendimiento. Actúa como puente principal para la modernización tecnológica de la institución, migrando la lógica de almacenamiento de los sistemas informáticos heredados hacia una arquitectura robusta basada en la nube.\n\n⚡ Asistida por IA — Gemini se utilizó para generar y refinar el contrato de la API (especificación OpenAPI), proponer estrategias de manejo de errores y documentar los endpoints de forma coherente entre ambas versiones del proyecto.",
       type: "Backend",
       year: "",
       tags: [
@@ -73,6 +81,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Docker", icon: "docker-plain" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Gemini", customIcon: "gemini" },
       ],
       images: [
         "/images/api-1.png",
@@ -86,7 +95,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Plataforma web integral para la gestión y trazabilidad de los procesos académicos institucionales.",
       longDescription:
-        "Aplicación web desarrollada como el núcleo tecnológico académico de la institución. Permite la integración fluida de los procesos universitarios y ofrece un seguimiento detallado para docentes y coordinadores. Además, orquesta el almacenamiento de archivos consumiendo la API institucional basada en MinIO.",
+        "Aplicación web desarrollada como el núcleo tecnológico académico de la institución. Permite la integración fluida de los procesos universitarios y ofrece un seguimiento detallado para docentes y coordinadores. Además, orquesta el almacenamiento de archivos consumiendo la API institucional basada en MinIO.\n\n⚡ Asistida por IA — Claude Code apoyó la generación de pruebas unitarias con PHPUnit para los módulos críticos del sistema, y asistió en la detección de patrones de código legacy que requerían refactorización hacia estándares modernos de Laravel.",
       type: "Web App",
       year: "",
       tags: [
@@ -96,6 +105,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "MinIO" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Claude Code", customIcon: "claude" },
       ],
       images: ["/images/academico-1.png", "/images/academico-2.png"],
     },
@@ -104,7 +114,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Módulo especializado para el registro, trazabilidad y control de las atenciones y solicitudes estudiantiles.",
       longDescription:
-        "Módulo avanzado integrado al sistema institucional para automatizar el registro de atención a estudiantes. Asegura la trazabilidad y auditoría de cada requerimiento procesado por la Dirección de Admisión y Registros Académicos (DARA), optimizando los tiempos de análisis y respuesta.",
+        "Módulo avanzado integrado al sistema institucional para automatizar el registro de atención a estudiantes. Asegura la trazabilidad y auditoría de cada requerimiento procesado por la Dirección de Admisión y Registros Académicos (DARA), optimizando los tiempos de análisis y respuesta.\n\n⚡ Asistida por IA — Claude Code se empleó en el desarrollo del módulo, apoyando la generación de lógica de negocio y pruebas automatizadas. Gemini se utilizó para la elaboración eficiente de prompts orientados a documentación técnica, redacción de especificaciones de requerimientos y generación de casos de prueba descriptivos.",
       type: "Módulo",
       year: "",
       tags: [
@@ -116,6 +126,8 @@ const projectsData: Record<string, Project[]> = {
         { name: "Docker", icon: "docker-plain" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Claude Code", customIcon: "claude" },
+        { name: "Gemini", customIcon: "gemini" },
       ],
       images: ["/images/bita-dara-1.png", "/images/bita-dara-2.png"],
     },
@@ -209,7 +221,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Full-Stack web application and PWA for personal finance management, budgeting, and shared group expenses.",
       longDescription:
-        "Pfinance is a comprehensive platform for personal and group financial control. It enables tracking income, expenses, and bank account transfers, categorizing movements, establishing budgets with visual consumption alerts, setting savings goals, and managing group shared debts with automated balance settlement. Built as an installable PWA with JWT authentication, interactive dashboards (Recharts), Excel/PDF data export, and cloud deployment.",
+        "Pfinance is a comprehensive platform for personal and group financial control. It enables tracking income, expenses, and bank account transfers, categorizing movements, establishing budgets with visual consumption alerts, setting savings goals, and managing group shared debts with automated balance settlement. Built as an installable PWA with JWT authentication, interactive dashboards (Recharts), Excel/PDF data export, and cloud deployment.\n\n⚡ AI-Assisted — Claude Code was a key tool in this project: it accelerated development through responsible vibe coding, suggesting module architecture and global state structure from the earliest stages. It was also actively used for backend security testing (NestJS + Supabase), generating attack scenarios, validating JWT authentication guards, and ensuring critical endpoints were correctly protected against SQL injection and unauthorized access.",
       type: "Web App",
       year: "2025",
       link: "https://pfinance-sfnr.vercel.app/login",
@@ -227,6 +239,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Vercel", icon: "vercel-original" },
         { name: "Render", icon: "render-plain" },
         { name: "Git", icon: "git-plain" },
+        { name: "Claude Code", customIcon: "claude" },
       ],
       images: [
         "/images/pfinance-1.png",
@@ -239,7 +252,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Centralized RESTful API for secure cloud document management and storage.",
       longDescription:
-        "Design and development of a scalable RESTful API aimed at centralizing document storage. This project was structured in two successive versions: an initial one implemented with PHP and Lumen, and a second version developed in Java with Spring Boot to maximize performance. It acts as the primary bridge for the technological modernization of the institution, migrating the storage logic of legacy systems towards a robust cloud-based architecture.",
+        "Design and development of a scalable RESTful API aimed at centralizing document storage. This project was structured in two successive versions: an initial one implemented with PHP and Lumen, and a second version developed in Java with Spring Boot to maximize performance. It acts as the primary bridge for the technological modernization of the institution, migrating the storage logic of legacy systems towards a robust cloud-based architecture.\n\n⚡ AI-Assisted — Gemini was used to generate and refine the API contract (OpenAPI specification), propose error handling strategies, and document endpoints consistently across both versions of the project.",
       type: "Backend",
       year: "",
       tags: [
@@ -251,6 +264,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Docker", icon: "docker-plain" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Gemini", customIcon: "gemini" },
       ],
       images: [
         "/images/api-1.png",
@@ -264,7 +278,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Comprehensive web platform for the management and traceability of institutional academic processes.",
       longDescription:
-        "Web application developed as the academic technological core of the institution. It enables seamless integration of university processes and provides detailed tracking for faculty and coordinators. Furthermore, it orchestrates file storage by consuming the MinIO-based institutional API.",
+        "Web application developed as the academic technological core of the institution. It enables seamless integration of university processes and provides detailed tracking for faculty and coordinators. Furthermore, it orchestrates file storage by consuming the MinIO-based institutional API.\n\n⚡ AI-Assisted — Claude Code supported the generation of PHPUnit unit tests for critical system modules and assisted in identifying legacy code patterns that required refactoring to modern Laravel standards.",
       type: "Web App",
       year: "",
       tags: [
@@ -274,6 +288,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "MinIO" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Claude Code", customIcon: "claude" },
       ],
       images: ["/images/academico-1.png", "/images/academico-2.png"],
     },
@@ -282,7 +297,7 @@ const projectsData: Record<string, Project[]> = {
       description:
         "Specialized module for the logging, traceability, and control of student assistance requests.",
       longDescription:
-        "Advanced module integrated into the institutional system to automate student assistance logging. It ensures traceability and auditing for every request processed by the Admission and Academic Records Office (DARA), thereby optimizing analysis and response times.",
+        "Advanced module integrated into the institutional system to automate student assistance logging. It ensures traceability and auditing for every request processed by the Admission and Academic Records Office (DARA), thereby optimizing analysis and response times.\n\n⚡ AI-Assisted — Claude Code was used throughout the module development, supporting business logic generation and automated test writing. Gemini was used for efficient prompt engineering focused on technical documentation, requirements specification writing, and generating descriptive test cases.",
       type: "Module",
       year: "",
       tags: [
@@ -294,6 +309,8 @@ const projectsData: Record<string, Project[]> = {
         { name: "Docker", icon: "docker-plain" },
         { name: "Git", icon: "git-plain" },
         { name: "GitLab", icon: "gitlab-plain" },
+        { name: "Claude Code", customIcon: "claude" },
+        { name: "Gemini", customIcon: "gemini" },
       ],
       images: ["/images/bita-dara-1.png", "/images/bita-dara-2.png"],
     },
@@ -488,8 +505,11 @@ const typeColors: Record<string, string> = {
               <p class="project-description">{proj.description}</p>
               <div class="tag-list">
                 {proj.tags.map((t) => (
-                  <span class="tech-chip">
-                    {t.icon && (
+                  <span class={`tech-chip${t.customIcon ? ` chip-ai chip-${t.customIcon}` : ''}`}>
+                    {t.customIcon && (
+                      <span class="tech-icon custom-icon" set:html={customIcons[t.customIcon]} />
+                    )}
+                    {!t.customIcon && t.icon && (
                       <img
                         src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon.split("-")[0]}/${t.icon}.svg`}
                         alt={t.name}
@@ -1108,6 +1128,50 @@ const typeColors: Record<string, string> = {
     height: 16px;
     object-fit: contain;
   }
+
+  /* AI chip styles — shared by cards (Astro) and modal (JS) */
+  .chip-claude {
+    background: linear-gradient(135deg, rgba(210, 105, 30, 0.12) 0%, rgba(205, 127, 50, 0.08) 100%);
+    border-color: rgba(210, 105, 30, 0.35);
+    color: #c46810;
+  }
+
+  .chip-claude .custom-icon,
+  .chip-claude .custom-icon svg {
+    color: #c46810;
+    fill: #c46810;
+    width: 14px;
+    height: 14px;
+  }
+
+  .chip-gemini {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(138, 94, 240, 0.08) 100%);
+    border-color: rgba(66, 133, 244, 0.35);
+    color: #4285f4;
+  }
+
+  .chip-gemini .custom-icon,
+  .chip-gemini .custom-icon svg {
+    color: #7c4dff;
+    fill: #7c4dff;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* custom-icon wrapper used in cards */
+  .tech-chip .custom-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .tech-chip .custom-icon svg {
+    width: 14px;
+    height: 14px;
+  }
 </style>
 
 <script>
@@ -1201,21 +1265,33 @@ const typeColors: Record<string, string> = {
         // Tags — same chip style as project cards
         if (modalTags) {
           modalTags.innerHTML = "";
-          data.tags.forEach((tag: { name: string; icon?: string }) => {
+          // SVG icon strings for AI tools (same as Astro customIcons map)
+          const customIconSVGs: Record<string, string> = {
+            claude: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.6-.097L.898 12.5l-.898-.324.898-.274 1.875-.122 1.6-.097 2.339-.121 2.698-.074.79-.048h.229l.08-.128-.08-.229-4.72-2.647-.899-.582-1.117-1.016-.87-1.016-.267-.945.267-.218.945.267 1.016.87 1.016 1.117.582.899 4.72 2.647.23.08.127-.08V9.2l.049-.79.073-2.698.097-2.339.097-1.6.122-1.875L12.5.898l.274-.898.324.898.122 1.875.097 1.6.097 2.339.073 2.698.049.79v.229l.127.08.23-.08 2.647-4.72.582-.899 1.016-1.117 1.016-.87.945-.267.218.267-.267.945-.87 1.016-1.016 1.117-.582.899-2.647 4.72-.08.23.08.127H15.8l.79.049 2.698.073 2.339.097 1.6.097 1.875.122.898.274-.898.324-1.875.122-1.6.097-2.339.097-2.698.073-.79.049h-.229l-.08.127.08.23 4.72 2.647.899.582 1.117 1.016.87 1.016.267.945-.218.267-.945-.267-1.016-.87-1.016-1.117-.582-.899-4.72-2.647-.23-.08-.127.08V15.8l-.049.79-.073 2.698-.097 2.339-.097 1.6-.122 1.875-.324.898-.274-.898-.122-1.875-.097-1.6-.097-2.339-.073-2.698-.049-.79V15.8l-.127-.08-.23.08-2.647 4.72-.582.899-1.016 1.117-1.016.87-.945.267-.267-.218.267-.945.87-1.016 1.016-1.117.582-.899 2.647-4.72.08-.23-.08-.127H8.2l-.79-.049-2.698-.073-2.339-.097-1.6-.097-1.875-.122-.898-.324z"/></svg>`,
+            gemini: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A14.304 14.304 0 000 12 14.304 14.304 0 0012 0a14.305 14.305 0 0012 12 14.305 14.305 0 00-12 12"/></svg>`,
+          };
+          data.tags.forEach((tag: { name: string; icon?: string; customIcon?: string }) => {
             const chip = document.createElement("span");
-            chip.className = "modal-chip";
-            if (tag.icon) {
-              const iconBase = tag.icon.split("-")[0];
-              const img = document.createElement("img");
-              img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconBase}/${tag.icon}.svg`;
-              img.alt = tag.name;
-              img.crossOrigin = "anonymous";
-              img.width = 16;
-              img.height = 16;
-              img.onerror = () => {
-                img.style.display = "none";
-              };
-              chip.appendChild(img);
+            if (tag.customIcon) {
+              chip.className = `modal-chip chip-ai chip-${tag.customIcon}`;
+              const iconWrapper = document.createElement("span");
+              iconWrapper.className = "custom-icon";
+              iconWrapper.style.cssText = "display:inline-flex;align-items:center;width:16px;height:16px;flex-shrink:0";
+              iconWrapper.innerHTML = customIconSVGs[tag.customIcon] || "";
+              chip.appendChild(iconWrapper);
+            } else {
+              chip.className = "modal-chip";
+              if (tag.icon) {
+                const iconBase = tag.icon.split("-")[0];
+                const img = document.createElement("img");
+                img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconBase}/${tag.icon}.svg`;
+                img.alt = tag.name;
+                img.crossOrigin = "anonymous";
+                img.width = 16;
+                img.height = 16;
+                img.onerror = () => { img.style.display = "none"; };
+                chip.appendChild(img);
+              }
             }
             chip.appendChild(document.createTextNode(tag.name));
             modalTags.appendChild(chip);

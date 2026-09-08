@@ -18,7 +18,7 @@ export const ui = {
     "hero.title": "Ingeniero Civil en Informática",
     "hero.subtitle": "Backend Developer",
     "hero.description":
-      "Especializado en APIs, microservicios y arquitecturas modernas con Node.js, Java, TypeScript y PHP (Laravel/Lumen). Orientado al código limpio, la escalabilidad y la mejora continua.",
+      "Especializado en APIs, microservicios y arquitecturas modernas con Node.js, TypeScript y PHP (Laravel/Lumen). Integro herramientas de IA (Claude Code, Gemini) para optimizar refactorización, pruebas automatizadas y productividad del equipo.",
     "hero.view_projects": "Ver proyectos",
     "hero.contact_me": "Contáctame",
     "hero.stat.years": "Años de experiencia",
@@ -39,7 +39,7 @@ export const ui = {
     "hero.title": "Computer Civil Engineer",
     "hero.subtitle": "Backend Developer",
     "hero.description":
-      "Specialized in APIs, microservices, and modern architectures with Node.js, TypeScript, and PHP (Laravel/Lumen). Focused on clean code, scalability, and continuous improvement.",
+      "Specialized in APIs, microservices, and modern architectures with Node.js, TypeScript and PHP (Laravel/Lumen). I integrate AI tools (Claude Code, Gemini) to optimize refactoring, automated testing and team productivity.",
     "hero.view_projects": "View projects",
     "hero.contact_me": "Contact me",
     "hero.stat.years": "Years of experience",

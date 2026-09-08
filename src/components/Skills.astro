@@ -6,120 +6,148 @@ const t = useTranslations(lang);
 
 interface Skill {
   name: string;
-  devicon?: string; // e.g. "react", "nodejs", "python"
+  devicon?: string;
+  customIcon?: string;
+  label?: string;
 }
 
 interface SkillGroup {
   category: string;
   icon: string;
   skills: Skill[];
+  isAI?: boolean;
 }
+
+const customIcons: Record<string, string> = {
+  claude: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.6-.097L.898 12.5l-.898-.324.898-.274 1.875-.122 1.6-.097 2.339-.121 2.698-.074.79-.048h.229l.08-.128-.08-.229-4.72-2.647-.899-.582-1.117-1.016-.87-1.016-.267-.945.267-.218.945.267 1.016.87 1.016 1.117.582.899 4.72 2.647.23.08.127-.08V9.2l.049-.79.073-2.698.097-2.339.097-1.6.122-1.875L12.5.898l.274-.898.324.898.122 1.875.097 1.6.097 2.339.073 2.698.049.79v.229l.127.08.23-.08 2.647-4.72.582-.899 1.016-1.117 1.016-.87.945-.267.218.267-.267.945-.87 1.016-1.016 1.117-.582.899-2.647 4.72-.08.23.08.127H15.8l.79.049 2.698.073 2.339.097 1.6.097 1.875.122.898.274-.898.324-1.875.122-1.6.097-2.339.097-2.698.073-.79.049h-.229l-.08.127.08.23 4.72 2.647.899.582 1.117 1.016.87 1.016.267.945-.218.267-.945-.267-1.016-.87-1.016-1.117-.582-.899-4.72-2.647-.23-.08-.127.08V15.8l-.049.79-.073 2.698-.097 2.339-.097 1.6-.122 1.875-.324.898-.274-.898-.122-1.875-.097-1.6-.097-2.339-.073-2.698-.049-.79V15.8l-.127-.08-.23.08-2.647 4.72-.582.899-1.016 1.117-1.016.87-.945.267-.267-.218.267-.945.87-1.016 1.016-1.117.582-.899 2.647-4.72.08-.23-.08-.127H8.2l-.79-.049-2.698-.073-2.339-.097-1.6-.097-1.875-.122-.898-.324z"/></svg>`,
+  gemini: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A14.304 14.304 0 000 12 14.304 14.304 0 0012 0a14.305 14.305 0 0012 12 14.305 14.305 0 00-12 12"/></svg>`,
+};
 
 const skillGroupsData: Record<string, SkillGroup[]> = {
   es: [
     {
-      category: 'Backend',
-      icon: '⚙️',
+      category: "Backend",
+      icon: "⚙️",
       skills: [
-        { name: 'Node.js', devicon: 'nodejs-plain' },
-        { name: 'NestJS', devicon: 'nestjs-original' },
-        { name: 'Laravel', devicon: 'laravel-original' },
-        { name: 'Spring Boot', devicon: 'spring-original' },
-        { name: 'PHP', devicon: 'php-plain' },
-        { name: 'Python', devicon: 'python-plain' },
-        { name: 'TypeScript', devicon: 'typescript-plain' },
+        { name: "Node.js", devicon: "nodejs-plain" },
+        { name: "NestJS", devicon: "nestjs-original" },
+        { name: "Laravel", devicon: "laravel-original" },
+        { name: "Spring Boot", devicon: "spring-original" },
+        { name: "PHP", devicon: "php-plain" },
+        { name: "Python", devicon: "python-plain" },
+        { name: "TypeScript", devicon: "typescript-plain" },
       ],
     },
     {
-      category: 'Frontend',
-      icon: '🖥️',
+      category: "Frontend",
+      icon: "🖥️",
       skills: [
-        { name: 'React', devicon: 'react-original' },
-        { name: 'Next.js', devicon: 'nextjs-original' },
-        { name: 'Vue.js', devicon: 'vuejs-plain' },
-        { name: 'Astro', devicon: 'astro-plain' },
-        { name: 'Tailwind CSS', devicon: 'tailwindcss-original' },
-        { name: 'Bootstrap', devicon: 'bootstrap-plain' },
-        { name: 'JavaScript', devicon: 'javascript-plain' },
-        { name: 'HTML / CSS', devicon: 'html5-plain' },
+        { name: "React", devicon: "react-original" },
+        { name: "Next.js", devicon: "nextjs-original" },
+        { name: "Vue.js", devicon: "vuejs-plain" },
+        { name: "Astro", devicon: "astro-plain" },
+        { name: "Tailwind CSS", devicon: "tailwindcss-original" },
+        { name: "Bootstrap", devicon: "bootstrap-plain" },
+        { name: "JavaScript", devicon: "javascript-plain" },
+        { name: "HTML / CSS", devicon: "html5-plain" },
       ],
     },
     {
-      category: 'Bases de Datos',
-      icon: '🗄️',
+      category: "Bases de Datos",
+      icon: "🗄️",
       skills: [
-        { name: 'PostgreSQL', devicon: 'postgresql-plain' },
-        { name: 'MySQL', devicon: 'mysql-original' },
-        { name: 'MongoDB', devicon: 'mongodb-plain' },
-        { name: 'SQL Server', devicon: 'microsoftsqlserver-plain' },
-        { name: 'SQLite', devicon: 'sqlite-plain' },
+        { name: "PostgreSQL", devicon: "postgresql-plain" },
+        { name: "MySQL", devicon: "mysql-original" },
+        { name: "MongoDB", devicon: "mongodb-plain" },
+        { name: "SQL Server", devicon: "microsoftsqlserver-plain" },
+        { name: "SQLite", devicon: "sqlite-plain" },
       ],
     },
     {
-      category: 'DevOps & Cloud',
-      icon: '🚀',
+      category: "DevOps & Cloud",
+      icon: "🚀",
       skills: [
-        { name: 'Docker', devicon: 'docker-plain' },
-        { name: 'GitHub Actions', devicon: 'githubactions-plain' },
-        { name: 'AWS', devicon: 'amazonwebservices-plain-wordmark' },
-        { name: 'Linux', devicon: 'linux-plain' },
-        { name: 'Git', devicon: 'git-plain' },
-        { name: 'Postman', devicon: 'postman-plain' },
+        { name: "Docker", devicon: "docker-plain" },
+        { name: "GitHub Actions", devicon: "githubactions-plain" },
+        { name: "AWS", devicon: "amazonwebservices-plain-wordmark" },
+        { name: "Linux", devicon: "linux-plain" },
+        { name: "Git", devicon: "git-plain" },
+        { name: "Postman", devicon: "postman-plain" },
+      ],
+    },
+    {
+      category: "IA & Productividad",
+      icon: "🤖",
+      isAI: true,
+      skills: [
+        { name: "Claude Code", customIcon: "claude", label: "Vibe coding · Pruebas de seguridad · Refactorización" },
+        { name: "Gemini", customIcon: "gemini", label: "Prompt Engineering · Documentación técnica" },
+        { name: "Prompt Engineering", label: "Diseño eficiente de prompts para maximizar la calidad y velocidad de entrega" },
       ],
     },
   ],
   en: [
     {
-      category: 'Backend',
-      icon: '⚙️',
+      category: "Backend",
+      icon: "⚙️",
       skills: [
-        { name: 'Node.js', devicon: 'nodejs-plain' },
-        { name: 'NestJS', devicon: 'nestjs-original' },
-        { name: 'Laravel', devicon: 'laravel-original' },
-        { name: 'Spring Boot', devicon: 'spring-original' },
-        { name: 'PHP', devicon: 'php-plain' },
-        { name: 'Python', devicon: 'python-plain' },
-        { name: 'TypeScript', devicon: 'typescript-plain' },
+        { name: "Node.js", devicon: "nodejs-plain" },
+        { name: "NestJS", devicon: "nestjs-original" },
+        { name: "Laravel", devicon: "laravel-original" },
+        { name: "Spring Boot", devicon: "spring-original" },
+        { name: "PHP", devicon: "php-plain" },
+        { name: "Python", devicon: "python-plain" },
+        { name: "TypeScript", devicon: "typescript-plain" },
       ],
     },
     {
-      category: 'Frontend',
-      icon: '🖥️',
+      category: "Frontend",
+      icon: "🖥️",
       skills: [
-        { name: 'React', devicon: 'react-original' },
-        { name: 'Next.js', devicon: 'nextjs-original' },
-        { name: 'Vue.js', devicon: 'vuejs-plain' },
-        { name: 'Astro', devicon: 'astro-plain' },
-        { name: 'Tailwind CSS', devicon: 'tailwindcss-original' },
-        { name: 'Bootstrap', devicon: 'bootstrap-plain' },
-        { name: 'JavaScript', devicon: 'javascript-plain' },
-        { name: 'HTML / CSS', devicon: 'html5-plain' },
+        { name: "React", devicon: "react-original" },
+        { name: "Next.js", devicon: "nextjs-original" },
+        { name: "Vue.js", devicon: "vuejs-plain" },
+        { name: "Astro", devicon: "astro-plain" },
+        { name: "Tailwind CSS", devicon: "tailwindcss-original" },
+        { name: "Bootstrap", devicon: "bootstrap-plain" },
+        { name: "JavaScript", devicon: "javascript-plain" },
+        { name: "HTML / CSS", devicon: "html5-plain" },
       ],
     },
     {
-      category: 'Databases',
-      icon: '🗄️',
+      category: "Databases",
+      icon: "🗄️",
       skills: [
-        { name: 'PostgreSQL', devicon: 'postgresql-plain' },
-        { name: 'MySQL', devicon: 'mysql-original' },
-        { name: 'MongoDB', devicon: 'mongodb-plain' },
-        { name: 'SQL Server', devicon: 'microsoftsqlserver-plain' },
-        { name: 'SQLite', devicon: 'sqlite-plain' },
+        { name: "PostgreSQL", devicon: "postgresql-plain" },
+        { name: "MySQL", devicon: "mysql-original" },
+        { name: "MongoDB", devicon: "mongodb-plain" },
+        { name: "SQL Server", devicon: "microsoftsqlserver-plain" },
+        { name: "SQLite", devicon: "sqlite-plain" },
       ],
     },
     {
-      category: 'DevOps & Cloud',
-      icon: '🚀',
+      category: "DevOps & Cloud",
+      icon: "🚀",
       skills: [
-        { name: 'Docker', devicon: 'docker-plain' },
-        { name: 'GitHub Actions', devicon: 'githubactions-plain' },
-        { name: 'AWS', devicon: 'amazonwebservices-plain-wordmark' },
-        { name: 'Linux', devicon: 'linux-plain' },
-        { name: 'Git', devicon: 'git-plain' },
-        { name: 'Postman', devicon: 'postman-plain' },
+        { name: "Docker", devicon: "docker-plain" },
+        { name: "GitHub Actions", devicon: "githubactions-plain" },
+        { name: "AWS", devicon: "amazonwebservices-plain-wordmark" },
+        { name: "Linux", devicon: "linux-plain" },
+        { name: "Git", devicon: "git-plain" },
+        { name: "Postman", devicon: "postman-plain" },
       ],
     },
-  ]
+    {
+      category: "AI & Productivity",
+      icon: "🤖",
+      isAI: true,
+      skills: [
+        { name: "Claude Code", customIcon: "claude", label: "Vibe coding · Security testing · Refactoring" },
+        { name: "Gemini", customIcon: "gemini", label: "Prompt Engineering · Technical documentation" },
+        { name: "Prompt Engineering", label: "Efficient prompt design to maximize quality and delivery speed" },
+      ],
+    },
+  ],
 };
 
 const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
@@ -127,29 +155,45 @@ const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
 
 <section id="habilidades" class="section section-alt">
   <div class="container">
-    <p class="section-label fade-in">{lang === 'es' ? 'Tecnologías' : 'Technologies'}</p>
-    <h2 class="section-title fade-in delay-100">{lang === 'es' ? 'Habilidades Técnicas' : 'Technical Skills'}</h2>
+    <p class="section-label fade-in">{lang === "es" ? "Tecnologías" : "Technologies"}</p>
+    <h2 class="section-title fade-in delay-100">{lang === "es" ? "Habilidades Técnicas" : "Technical Skills"}</h2>
     <div class="section-divider fade-in delay-200"></div>
 
     <div class="skills-grid">
       {skillGroups.map((group, gi) => (
-        <div class={`skill-card card fade-in delay-${(gi + 2) * 100}`}>
+        <div class={`skill-card card fade-in delay-${(gi + 2) * 100}${group.isAI ? " skill-card-ai" : ""}`}>
           <div class="skill-card-header">
             <span class="skill-icon">{group.icon}</span>
             <h4 class="skill-category">{group.category}</h4>
+            {group.isAI && (
+              <span class="ai-badge">{lang === "es" ? "Integrado al flujo" : "Integrated in workflow"}</span>
+            )}
           </div>
+          {group.isAI && (
+            <p class="ai-card-desc">
+              {lang === "es"
+                ? "Uso activo de herramientas de IA generativa dentro del ciclo de desarrollo: desde la arquitectura y el vibe coding hasta las pruebas automatizadas y la documentación técnica."
+                : "Active use of generative AI tools within the development lifecycle: from architecture and vibe coding to automated testing and technical documentation."}
+            </p>
+          )}
           <div class="skill-tags">
-            {group.skills.map(s => (
-              <span class="tech-chip">
-                {s.devicon && (
-                  <img 
-                    src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${s.devicon.split('-')[0]}/${s.devicon}.svg`} 
-                    alt={s.name} 
-                    class="tech-icon"
-                  />
-                )}
-                {s.name}
-              </span>
+            {group.skills.map((s) => (
+              <div class={`skill-chip-wrapper${s.customIcon ? " ai-chip-wrapper" : ""}`}>
+                <span class={`tech-chip${s.customIcon ? ` chip-ai chip-${s.customIcon}` : ""}`}>
+                  {s.customIcon && (
+                    <span class="tech-icon custom-icon" set:html={customIcons[s.customIcon]} />
+                  )}
+                  {!s.customIcon && s.devicon && (
+                    <img
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${s.devicon.split("-")[0]}/${s.devicon}.svg`}
+                      alt={s.name}
+                      class="tech-icon"
+                    />
+                  )}
+                  {s.name}
+                </span>
+                {s.label && <span class="chip-label">{s.label}</span>}
+              </div>
             ))}
           </div>
         </div>
@@ -167,11 +211,30 @@ const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
 
   .skill-card { padding: 28px 24px; }
 
+  .skill-card-ai {
+    grid-column: 1 / -1;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(196, 104, 16, 0.25);
+  }
+
+  .skill-card-ai::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #c46810, #4285f4, #7c4dff);
+    border-radius: 2px 2px 0 0;
+  }
+
   .skill-card-header {
     display: flex;
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
   }
 
   .skill-icon { font-size: 1.4rem; line-height: 1; }
@@ -182,10 +245,47 @@ const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
     color: var(--color-text);
   }
 
+  .ai-badge {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(196, 104, 16, 0.12), rgba(66, 133, 244, 0.12));
+    border: 1px solid rgba(196, 104, 16, 0.3);
+    color: var(--color-accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .ai-card-desc {
+    font-size: 0.85rem;
+    color: var(--color-muted);
+    line-height: 1.75;
+    margin-bottom: 20px;
+    max-width: 760px;
+  }
+
   .skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .skill-chip-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .chip-label {
+    font-size: 0.68rem;
+    color: var(--color-muted);
+    line-height: 1.4;
+    padding-left: 4px;
+    max-width: 220px;
   }
 
   .tech-chip {
@@ -201,9 +301,37 @@ const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
     color: var(--color-text);
   }
 
-  .tech-icon {
+  .chip-claude {
+    background: linear-gradient(135deg, rgba(210, 105, 30, 0.12) 0%, rgba(205, 127, 50, 0.08) 100%);
+    border-color: rgba(210, 105, 30, 0.35);
+    color: #c46810;
+  }
+
+  .chip-claude .custom-icon svg { fill: #c46810; }
+
+  .chip-gemini {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(138, 94, 240, 0.08) 100%);
+    border-color: rgba(66, 133, 244, 0.35);
+    color: #4285f4;
+  }
+
+  .chip-gemini .custom-icon svg { fill: #7c4dff; }
+
+  .tech-icon { width: 16px; height: 16px; object-fit: contain; }
+
+  .custom-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 16px;
     height: 16px;
-    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  .custom-icon svg { width: 16px; height: 16px; }
+
+  @media (max-width: 600px) {
+    .skill-card-ai { grid-column: auto; }
+    .ai-badge { margin-left: 0; width: fit-content; }
   }
 </style>
