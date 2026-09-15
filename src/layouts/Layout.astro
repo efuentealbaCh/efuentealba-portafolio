@@ -6,14 +6,53 @@ import '../styles/global.css';
 interface Props {
   title?: string;
   description?: string;
+  canonicalPath?: string;
 }
 
 const {
-  title = 'Portafolio | Eliacer Fuentealba',
-  description = 'Portafolio profesional de Eliacer Fuentealba, Ingeniero Civil en Informática especializado en Backend, APIs y microservicios.',
+  title = 'Portafolio | Eliacer Antonio Fuentealba Chaura — Ingeniero Civil en Informática',
+  description = 'Portafolio profesional de Eliacer Antonio Fuentealba Chaura, Ingeniero Civil en Informática especializado en Backend, APIs y microservicios.',
+  canonicalPath = '',
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
+const siteUrl = 'https://portafolio-efuentealba.netlify.app';
+const canonicalUrl = `${siteUrl}${canonicalPath || Astro.url.pathname}`;
+const isEn = lang === 'en';
+
+const ogTitle = title;
+const ogDescription = description;
+const ogImage = `${siteUrl}/images/og-preview.png`;
+
+// JSON-LD Person schema — tells Google exactly who you are
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Eliacer Antonio Fuentealba Chaura",
+  "alternateName": ["Eliacer Fuentealba", "Eliacer Fuentealba Chaura"],
+  "url": `${siteUrl}/es/`,
+  "image": `${siteUrl}/images/og-preview.png`,
+  "jobTitle": isEn ? "Software Engineer" : "Ingeniero Civil en Informática",
+  "description": isEn
+    ? "Software Engineer specialized in Backend, APIs, microservices, and modern architectures with Node.js, TypeScript, and Laravel."
+    : "Ingeniero Civil en Informática especializado en Backend, APIs, microservicios y arquitecturas modernas con Node.js, TypeScript y Laravel.",
+  "email": "efuentealba038@gmail.com",
+  "nationality": {
+    "@type": "Country",
+    "name": "Chile"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/eliacer-fuentealba-5b3003229/",
+    "https://github.com/efuentealbaCh",
+    `${siteUrl}/es/`,
+    `${siteUrl}/en/`
+  ],
+  "knowsAbout": [
+    "Node.js", "TypeScript", "PHP", "Laravel", "Lumen",
+    "Microservices", "REST APIs", "Backend Development",
+    "Software Architecture", "Claude AI", "Gemini AI"
+  ]
+};
 ---
 
 <!doctype html>
@@ -21,9 +60,39 @@ const lang = getLangFromUrl(Astro.url);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
-    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary SEO -->
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Eliacer Antonio Fuentealba Chaura" />
+    <meta name="keywords" content={isEn
+      ? "Eliacer Fuentealba, Eliacer Antonio Fuentealba Chaura, Eliacer Fuentealba Chaura, Software Engineer Chile, Backend Developer, Node.js TypeScript Laravel"
+      : "Eliacer Fuentealba, Eliacer Antonio Fuentealba Chaura, Eliacer Fuentealba Chaura, Ingeniero Civil en Informática, Desarrollador Backend Chile, Node.js TypeScript Laravel"
+    } />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content={isEn ? "en_US" : "es_CL"} />
+    <meta property="og:site_name" content="Eliacer Antonio Fuentealba Chaura — Portafolio" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:creator" content="@efuentealbaCh" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+
+    <meta name="generator" content={Astro.generator} />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
