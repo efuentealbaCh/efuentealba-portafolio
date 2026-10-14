@@ -27,8 +27,41 @@ interface Project {
   images: string[];
 }
 
+const munchMateTags: TechTag[] = [
+  { name: "Next.js", icon: "nextjs-original" },
+  { name: "React", icon: "react-original" },
+  { name: "NestJS", icon: "nestjs-original" },
+  { name: "TypeScript", icon: "typescript-plain" },
+  { name: "Tailwind CSS", icon: "tailwindcss-original" },
+  { name: "MongoDB", icon: "mongodb-plain" },
+  { name: "Valkey (Redis)", icon: "redis-plain" },
+  { name: "BullMQ" },
+  { name: "Socket.IO", icon: "socketio-original" },
+  { name: "MapLibre + OpenStreetMap" },
+  { name: "Garage (S3)" },
+  { name: "Caddy" },
+  { name: "Docker", icon: "docker-plain" },
+  { name: "Jest", icon: "jest-plain" },
+  { name: "Playwright", icon: "playwright-plain" },
+  { name: "GitHub Actions", icon: "githubactions-plain" },
+  { name: "Claude Code", customIcon: "claude" },
+];
+
+const munchMateImages = Array.from({ length: 12 }, (_, i) => `/images/munchmate-${i + 1}.png`);
+
 const projectsData: Record<string, Project[]> = {
   es: [
+    {
+      title: "Munch Mate",
+      description:
+        "SaaS multi-restaurante de pedidos por QR en la mesa, retiro y delivery, con cocina en vivo, mapas propios y seguimiento del repartidor en tiempo real.",
+      longDescription:
+        "Munch Mate es una plataforma SaaS para que cada restaurante reciba pedidos desde el QR de la mesa, para retiro y con delivery, todos en un tablero de cocina que se actualiza en vivo. El cliente sigue su pedido en tiempo real; en delivery ve al repartidor moverse en un mapa, con zonas de reparto dibujadas como polígonos y validadas por ubicación. El salón incluye cuenta de mesa con «llamar al garzón» y «pedir la cuenta», propina voluntaria, y cobro dividido en partes iguales, por productos o en montos libres, cada pago con su medio. El personal puede modificar un pedido antes de que cocina lo empiece, y el sistema recalcula precios en el servidor y avisa al cliente.\n\nTambién cubre descuentos programados por producto, horario de atención, roles (dueño, caja, cocina, garzón y repartidor), ventas diarias y exportación a Excel, comprobantes PDF, notificaciones push, avisos por WhatsApp/SMS y un agente para Windows que imprime comandas en impresoras térmicas ESC/POS. Arquitectura multi-tenant autoalojada: Next.js y NestJS, colas con BullMQ sobre Valkey, Socket.IO, MongoDB en réplica, almacenamiento S3 con Garage y mapas propios de OpenStreetMap (PMTiles), todo en Docker Compose detrás de Caddy. Calidad respaldada por pruebas unitarias, de integración con Testcontainers, end-to-end de la API, flujos de navegador con Playwright y un smoke test sobre el stack de producción.\n\n⚡ Asistida por IA — Claude Code acompañó todo el desarrollo: diseño de la arquitectura y del modelo de datos, implementación por fases con subagentes especializados en backend y frontend, revisión de seguridad (aislamiento entre restaurantes, CSRF, sesiones con cookies httpOnly, SSRF en notificaciones), escritura de pruebas y documentación. El recorrido de capturas de este proyecto también es un script automatizado con Playwright.",
+      type: "Web App",
+      year: "2026",
+      tags: munchMateTags,
+      images: munchMateImages,
+    },
     {
       title: "Pfinance",
       description:
@@ -216,6 +249,17 @@ const projectsData: Record<string, Project[]> = {
     },
   ],
   en: [
+    {
+      title: "Munch Mate",
+      description:
+        "Multi-restaurant SaaS for table-QR, pickup and delivery orders, with a live kitchen board, self-hosted maps and real-time rider tracking.",
+      longDescription:
+        "Munch Mate is a SaaS platform where each restaurant takes orders from the table QR code, for pickup and for delivery, all on a kitchen board that updates live. Customers follow their order in real time; for deliveries they watch the rider move on a map, with delivery zones drawn as polygons and validated by location. The dining room includes a table account with \"call the waiter\" and \"ask for the bill\", a voluntary tip, and split bills in equal parts, by item or by free amounts, each payment with its own method. Staff can edit an order before the kitchen starts it, while the server reprices it and notifies the customer.\n\nIt also covers scheduled product discounts, opening hours, roles (owner, cashier, kitchen, waiter and rider), daily sales and Excel export, PDF receipts, push notifications, WhatsApp/SMS notices and a Windows agent that prints kitchen tickets on ESC/POS thermal printers. Self-hosted multi-tenant architecture: Next.js and NestJS, BullMQ queues on Valkey, Socket.IO, a MongoDB replica set, S3 storage with Garage and self-hosted OpenStreetMap maps (PMTiles), all in Docker Compose behind Caddy. Quality is backed by unit tests, Testcontainers integration tests, API end-to-end tests, Playwright browser flows and a smoke test against the production stack.\n\n⚡ AI-Assisted — Claude Code was part of the whole development: architecture and data model design, phased implementation with specialized backend and frontend subagents, security review (tenant isolation, CSRF, httpOnly cookie sessions, SSRF in notifications), tests and documentation. The screenshot walkthrough of this project is itself an automated Playwright script.",
+      type: "Web App",
+      year: "2026",
+      tags: munchMateTags,
+      images: munchMateImages,
+    },
     {
       title: "Pfinance",
       description:
