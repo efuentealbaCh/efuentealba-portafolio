@@ -24,6 +24,8 @@ interface Project {
   year: string;
   tags: TechTag[];
   link?: string;
+  /** Label of the link button; default «Ver demo» / «View demo». */
+  linkLabel?: string;
   images: string[];
 }
 
@@ -37,6 +39,8 @@ const munchMateTags: TechTag[] = [
   { name: "Valkey (Redis)", icon: "redis-plain" },
   { name: "BullMQ" },
   { name: "Socket.IO", icon: "socketio-original" },
+  { name: "Three.js", icon: "threejs-original" },
+  { name: "PWA + Web Push" },
   { name: "MapLibre + OpenStreetMap" },
   { name: "Garage (S3)" },
   { name: "Caddy" },
@@ -47,18 +51,20 @@ const munchMateTags: TechTag[] = [
   { name: "Claude Code", customIcon: "claude" },
 ];
 
-const munchMateImages = Array.from({ length: 15 }, (_, i) => `/images/munchmate-${i + 1}.png`);
+const munchMateImages = Array.from({ length: 18 }, (_, i) => `/images/munchmate-${i + 1}.png`);
 
 const projectsData: Record<string, Project[]> = {
   es: [
     {
       title: "Munch Mate",
       description:
-        "SaaS multi-restaurante de pedidos por QR en la mesa, retiro y delivery, con una vista isométrica en vivo del local, mapas propios y seguimiento del repartidor en tiempo real.",
+        "SaaS multi-restaurante de pedidos por QR en la mesa, retiro y delivery, con una vista en vivo del local (isométrica o en 3D), inventario con recetas, planes y seguimiento del repartidor en tiempo real.",
       longDescription:
-        "Munch Mate es una plataforma SaaS para que cada restaurante reciba pedidos desde el QR de la mesa, para retiro y con delivery, todos en un tablero de cocina que se actualiza en vivo. El cliente sigue su pedido en tiempo real; en delivery ve al repartidor moverse en un mapa, con zonas de reparto dibujadas como polígonos y validadas por ubicación. El salón incluye cuenta de mesa con «llamar al garzón» y «pedir la cuenta», propina voluntaria, y cobro dividido en partes iguales, por productos o en montos libres, cada pago con su medio. El personal puede modificar un pedido antes de que cocina lo empiece, y el sistema recalcula precios en el servidor y avisa al cliente.\n\nEl dueño dibuja el plano de su local (mesas, cocina, mesón de retiro y puerta de delivery) y obtiene una «Vista en vivo»: el local en isométrico, generado en SVG desde ese plano, con cada mesa coloreada según su cuenta (pidiendo, comiendo, llamó al garzón, pidió la cuenta o pagando por partes), las comandas flotando sobre la cocina con su cronómetro contra la meta, los retiros listos, las motos que salen a repartir con un minimapa e indicadores de ventas y tiempos que se actualizan en tiempo real. Cada zona aparece solo si el local la usa.\n\nTambién cubre descuentos programados por producto, horario de atención, roles (dueño, caja, cocina, garzón y repartidor), ventas diarias y exportación a Excel, comprobantes PDF, notificaciones push, avisos por WhatsApp/SMS y un agente para Windows que imprime comandas en impresoras térmicas ESC/POS. Arquitectura multi-tenant autoalojada: Next.js y NestJS, colas con BullMQ sobre Valkey, Socket.IO, MongoDB en réplica, almacenamiento S3 con Garage y mapas propios de OpenStreetMap (PMTiles), todo en Docker Compose detrás de Caddy. Calidad respaldada por pruebas unitarias, de integración con Testcontainers, end-to-end de la API, flujos de navegador con Playwright y un smoke test sobre el stack de producción.\n\n⚡ Asistida por IA — Claude Code acompañó todo el desarrollo: diseño de la arquitectura y del modelo de datos, implementación por fases con subagentes especializados en backend y frontend, revisión de seguridad (aislamiento entre restaurantes, CSRF, sesiones con cookies httpOnly, SSRF en notificaciones), escritura de pruebas y documentación. El recorrido de capturas de este proyecto también es un script automatizado con Playwright.",
+        "Munch Mate es una plataforma SaaS para que cada restaurante reciba pedidos desde el QR de la mesa, para retiro y con delivery, todos en un tablero de cocina que se actualiza en vivo. El cliente sigue su pedido en tiempo real; en delivery ve al repartidor moverse en un mapa, con zonas de reparto dibujadas como polígonos y validadas por ubicación. El salón incluye cuenta de mesa con «llamar al garzón» y «pedir la cuenta», propina voluntaria, y cobro dividido en partes iguales, por productos o en montos libres, cada pago con su medio. El personal puede modificar un pedido antes de que cocina lo empiece, y el sistema recalcula precios en el servidor y avisa al cliente.\n\nEl dueño dibuja el plano de su local (mesas, cocina, mesón de retiro y puerta de delivery) y obtiene una «Vista en vivo»: el local en isométrico, generado en SVG desde ese plano, con cada mesa coloreada según su cuenta (pidiendo, comiendo, llamó al garzón, pidió la cuenta o pagando por partes), las comandas flotando sobre la cocina con su cronómetro contra la meta, los retiros listos, las motos que salen a repartir con un minimapa e indicadores de ventas y tiempos que se actualizan en tiempo real. Cada zona aparece solo si el local la usa. El plano admite varios pisos, terrenos y decoración, y se ve en isométrico (SVG) o, de forma opcional, en 3D con Three.js: ese motor se descarga solo cuando el usuario lo activa y antes avisa que consume más batería. Las personas se animan según el estado real: comensales en las mesas ocupadas, el garzón que camina hacia la mesa que llama y los cocineros trabajando mientras hay comandas.\n\nTambién cubre descuentos programados por producto, horario de atención, roles (dueño, caja, cocina, garzón y repartidor), ventas diarias y exportación a Excel, comprobantes PDF, notificaciones push, avisos por WhatsApp/SMS y un agente para Windows que imprime comandas en impresoras térmicas ESC/POS. Un inventario opcional descuenta los insumos según recetas por producto y por opción cuando se acepta un pedido, marca «Agotado» automáticamente lo que se queda sin stock, avisa por push y envía cada día la lista de compras por correo. Los planes (Mesa, Local y Completo), con 30 días de prueba, se hacen cumplir en el servidor y se administran desde un panel de plataforma. El personal puede instalar la app en el celular y recibir avisos push de pedidos nuevos y de mesas que llaman al garzón. Arquitectura multi-tenant autoalojada: Next.js y NestJS, colas con BullMQ sobre Valkey, Socket.IO, MongoDB en réplica, almacenamiento S3 con Garage y mapas propios de OpenStreetMap (PMTiles), todo en Docker Compose detrás de Caddy. Calidad respaldada por pruebas unitarias, de integración con Testcontainers, end-to-end de la API, flujos de navegador con Playwright y un smoke test sobre el stack de producción.\n\n⚡ Asistida por IA — Claude Code acompañó todo el desarrollo: diseño de la arquitectura y del modelo de datos, implementación por fases con subagentes especializados en backend y frontend, revisión de seguridad (aislamiento entre restaurantes, CSRF, sesiones con cookies httpOnly, SSRF en notificaciones), escritura de pruebas y documentación. El recorrido de capturas de este proyecto también es un script automatizado con Playwright.",
       type: "Web App",
       year: "2026",
+      link: "https://munch-mate-landing.vercel.app/",
+      linkLabel: "Ver sitio de ventas",
       tags: munchMateTags,
       images: munchMateImages,
     },
@@ -252,11 +258,13 @@ const projectsData: Record<string, Project[]> = {
     {
       title: "Munch Mate",
       description:
-        "Multi-restaurant SaaS for table-QR, pickup and delivery orders, with a live isometric view of the restaurant, self-hosted maps and real-time rider tracking.",
+        "Multi-restaurant SaaS for table-QR, pickup and delivery orders, with a live view of the restaurant (isometric or 3D), inventory with recipes, plans and real-time rider tracking.",
       longDescription:
-        "Munch Mate is a SaaS platform where each restaurant takes orders from the table QR code, for pickup and for delivery, all on a kitchen board that updates live. Customers follow their order in real time; for deliveries they watch the rider move on a map, with delivery zones drawn as polygons and validated by location. The dining room includes a table account with \"call the waiter\" and \"ask for the bill\", a voluntary tip, and split bills in equal parts, by item or by free amounts, each payment with its own method. Staff can edit an order before the kitchen starts it, while the server reprices it and notifies the customer.\n\nThe owner draws the restaurant's floor plan (tables, kitchen, pickup counter and delivery door) and gets a \"Live view\": the restaurant in isometric, generated as SVG from that plan, with each table colored by its account (ordering, eating, called the waiter, asked for the bill or paying in parts), kitchen tickets floating over the kitchen with a timer against the goal, pickups ready, scooters leaving on deliveries with a mini map, and sales and timing indicators updated in real time. Each area shows up only if the restaurant uses it.\n\nIt also covers scheduled product discounts, opening hours, roles (owner, cashier, kitchen, waiter and rider), daily sales and Excel export, PDF receipts, push notifications, WhatsApp/SMS notices and a Windows agent that prints kitchen tickets on ESC/POS thermal printers. Self-hosted multi-tenant architecture: Next.js and NestJS, BullMQ queues on Valkey, Socket.IO, a MongoDB replica set, S3 storage with Garage and self-hosted OpenStreetMap maps (PMTiles), all in Docker Compose behind Caddy. Quality is backed by unit tests, Testcontainers integration tests, API end-to-end tests, Playwright browser flows and a smoke test against the production stack.\n\n⚡ AI-Assisted — Claude Code was part of the whole development: architecture and data model design, phased implementation with specialized backend and frontend subagents, security review (tenant isolation, CSRF, httpOnly cookie sessions, SSRF in notifications), tests and documentation. The screenshot walkthrough of this project is itself an automated Playwright script.",
+        "Munch Mate is a SaaS platform where each restaurant takes orders from the table QR code, for pickup and for delivery, all on a kitchen board that updates live. Customers follow their order in real time; for deliveries they watch the rider move on a map, with delivery zones drawn as polygons and validated by location. The dining room includes a table account with \"call the waiter\" and \"ask for the bill\", a voluntary tip, and split bills in equal parts, by item or by free amounts, each payment with its own method. Staff can edit an order before the kitchen starts it, while the server reprices it and notifies the customer.\n\nThe owner draws the restaurant's floor plan (tables, kitchen, pickup counter and delivery door) and gets a \"Live view\": the restaurant in isometric, generated as SVG from that plan, with each table colored by its account (ordering, eating, called the waiter, asked for the bill or paying in parts), kitchen tickets floating over the kitchen with a timer against the goal, pickups ready, scooters leaving on deliveries with a mini map, and sales and timing indicators updated in real time. Each area shows up only if the restaurant uses it. The plan supports several floors, terrain and decoration, and is shown in isometric (SVG) or, optionally, in 3D with Three.js: that engine is only downloaded when the user turns it on, after a notice that it uses more battery. People are animated from the real state: diners at occupied tables, the waiter walking to the table that calls and the cooks working while there are tickets.\n\nIt also covers scheduled product discounts, opening hours, roles (owner, cashier, kitchen, waiter and rider), daily sales and Excel export, PDF receipts, push notifications, WhatsApp/SMS notices and a Windows agent that prints kitchen tickets on ESC/POS thermal printers. An optional inventory deducts supplies from recipes per product and per option when an order is accepted, marks anything that runs out as \"Sold out\" automatically, sends push alerts and emails the shopping list every day. Plans (Mesa, Local and Completo), with a 30-day trial, are enforced on the server and managed from a platform admin panel. Staff can install the app on their phone and get push alerts for new orders and for tables calling the waiter. Self-hosted multi-tenant architecture: Next.js and NestJS, BullMQ queues on Valkey, Socket.IO, a MongoDB replica set, S3 storage with Garage and self-hosted OpenStreetMap maps (PMTiles), all in Docker Compose behind Caddy. Quality is backed by unit tests, Testcontainers integration tests, API end-to-end tests, Playwright browser flows and a smoke test against the production stack.\n\n⚡ AI-Assisted — Claude Code was part of the whole development: architecture and data model design, phased implementation with specialized backend and frontend subagents, security review (tenant isolation, CSRF, httpOnly cookie sessions, SSRF in notifications), tests and documentation. The screenshot walkthrough of this project is itself an automated Playwright script.",
       type: "Web App",
       year: "2026",
+      link: "https://munch-mate-landing.vercel.app/",
+      linkLabel: "View sales site",
       tags: munchMateTags,
       images: munchMateImages,
     },
@@ -478,6 +486,7 @@ const typeColors: Record<string, string> = {
               year: proj.year,
               tags: proj.tags,
               link: proj.link || null,
+              linkLabel: proj.linkLabel || null,
               images: proj.images,
             })}
             tabindex="0"
@@ -541,7 +550,7 @@ const typeColors: Record<string, string> = {
                       <polyline points="15 3 21 3 21 9" />
                       <line x1="10" y1="14" x2="21" y2="3" />
                     </svg>
-                    {lang === "es" ? "Ver demo" : "View demo"}
+                    {proj.linkLabel ?? (lang === "es" ? "Ver demo" : "View demo")}
                   </a>
                 )}
               </div>
@@ -676,7 +685,7 @@ const typeColors: Record<string, string> = {
             ><line x1="7" y1="17" x2="17" y2="7"></line><polyline
               points="7 7 17 7 17 17"></polyline></svg
           >
-          {lang === "es" ? "Ver demo" : "View demo"}
+          <span id="proj-modal-link-label">{lang === "es" ? "Ver demo" : "View demo"}</span>
         </a>
       </div>
       <p class="proj-modal-description" id="proj-modal-desc"></p>
@@ -1236,6 +1245,9 @@ const typeColors: Record<string, string> = {
     const modalLink = document.getElementById(
       "proj-modal-link",
     ) as HTMLAnchorElement;
+    // «Ver demo» / «View demo» as rendered for the page's language; projects may override it (`linkLabel`).
+    const defaultLinkLabel =
+      document.getElementById("proj-modal-link-label")?.textContent ?? "";
 
     if (!modal) return;
 
@@ -1300,6 +1312,8 @@ const typeColors: Record<string, string> = {
         if (modalLink) {
           if (data.link) {
             modalLink.href = data.link;
+            const label = document.getElementById("proj-modal-link-label");
+            if (label) label.textContent = data.linkLabel || defaultLinkLabel;
             modalLink.classList.remove("hidden");
           } else {
             modalLink.classList.add("hidden");
