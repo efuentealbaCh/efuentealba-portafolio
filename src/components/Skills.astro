@@ -69,7 +69,7 @@ const skillGroupsData: Record<string, SkillGroup[]> = {
       skills: [
         { name: "Docker", devicon: "docker-plain" },
         { name: "GitHub Actions", devicon: "githubactions-plain" },
-        { name: "AWS", devicon: "amazonwebservices-plain-wordmark" },
+        { name: "AWS", devicon: "amazonwebservices-original" },
         { name: "Linux", devicon: "linux-plain" },
         { name: "Git", devicon: "git-plain" },
         { name: "Postman", devicon: "postman-plain" },
@@ -80,7 +80,7 @@ const skillGroupsData: Record<string, SkillGroup[]> = {
       icon: "🤖",
       isAI: true,
       skills: [
-        { name: "Claude Code", customIcon: "claude", label: "Vibe coding · Pruebas de seguridad · Refactorización" },
+        { name: "Claude Code", customIcon: "claude", label: "Subagentes especializados · Pruebas de seguridad · Refactorización" },
         { name: "Gemini", customIcon: "gemini", label: "Prompt Engineering · Documentación técnica" },
         { name: "Prompt Engineering", label: "Diseño eficiente de prompts para maximizar la calidad y velocidad de entrega" },
       ],
@@ -131,7 +131,7 @@ const skillGroupsData: Record<string, SkillGroup[]> = {
       skills: [
         { name: "Docker", devicon: "docker-plain" },
         { name: "GitHub Actions", devicon: "githubactions-plain" },
-        { name: "AWS", devicon: "amazonwebservices-plain-wordmark" },
+        { name: "AWS", devicon: "amazonwebservices-original" },
         { name: "Linux", devicon: "linux-plain" },
         { name: "Git", devicon: "git-plain" },
         { name: "Postman", devicon: "postman-plain" },
@@ -142,7 +142,7 @@ const skillGroupsData: Record<string, SkillGroup[]> = {
       icon: "🤖",
       isAI: true,
       skills: [
-        { name: "Claude Code", customIcon: "claude", label: "Vibe coding · Security testing · Refactoring" },
+        { name: "Claude Code", customIcon: "claude", label: "Specialized subagents · Security testing · Refactoring" },
         { name: "Gemini", customIcon: "gemini", label: "Prompt Engineering · Technical documentation" },
         { name: "Prompt Engineering", label: "Efficient prompt design to maximize quality and delivery speed" },
       ],
@@ -185,7 +185,7 @@ const skillGroups = skillGroupsData[lang as keyof typeof skillGroupsData];
                   )}
                   {!s.customIcon && s.devicon && (
                     <img
-                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${s.devicon.split("-")[0]}/${s.devicon}.svg`}
+                      src={`https://cdn.jsdelivr.net/gh/devicons/devicon@2.18.0/icons/${s.devicon.split("-")[0]}/${s.devicon}.svg`}
                       alt={s.name}
                       class="tech-icon"
                     />

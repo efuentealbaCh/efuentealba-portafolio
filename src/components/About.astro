@@ -10,7 +10,7 @@ const content = {
     title: "Más allá<br />del código",
     bio1: "Soy <strong>Eliacer Fuentealba</strong>, Ingeniero Civil en Informática con mención en Tecnologías de Información, titulado de la Universidad Católica de Temuco (2019–2024).",
     bio2: "Cuento con más de 4 años de experiencia en desarrollo Backend, especializado en APIs y microservicios con <strong>Node.js, TypeScript</strong> y frameworks PHP como <strong>Laravel y Lumen</strong>. He trabajado en entornos multi-stack con React, Docker, PostgreSQL, MongoDB y SQL Server, aplicando metodologías ágiles (Scrum, Kanban) en equipos distribuidos.",
-    bio3: "Integro herramientas de <strong>Inteligencia Artificial (Claude Code, Gemini)</strong> en el ciclo de vida del desarrollo para optimizar la refactorización de código, acelerar la creación de pruebas automatizadas y mejorar la eficiencia del equipo. Me oriento a la entrega de <strong>código limpio y escalable</strong> y a la mejora continua de los sistemas.",
+    bio3: "Integro herramientas de <strong>Inteligencia Artificial (Claude Code, Gemini)</strong> en el ciclo de vida del desarrollo para optimizar la refactorización de código, acelerar la creación de pruebas automatizadas y mejorar la eficiencia del equipo. Trabajo con Claude Code orquestando <strong>subagentes especializados</strong> (orquestador, pm, arquitecto, ux, backend, frontend, dba, debugger, qa, reviewer, seguridad, devops y documentador), siempre con puntos de control humano. Me oriento a la entrega de <strong>código limpio y escalable</strong> y a la mejora continua de los sistemas.",
     v1_t: "Código limpio",
     v1_d: "Escribo código pensando en quien lo va a mantener, no solo en que funcione hoy.",
     v2_t: "Orientado al valor",
@@ -22,6 +22,8 @@ const content = {
     edu_title: "Formación & Certificaciones",
     edu_ver_doc: "Ver documento",
     edu_ver_cred: "Ver credencial",
+    modal_doc: "Documento",
+    modal_close: "Cerrar",
     int_title: "Intereses Personales",
     interests: [
       { name: "Video Juegos", icon: "🎮" },
@@ -36,7 +38,7 @@ const content = {
     title: "Beyond<br />the code",
     bio1: "I'm <strong>Eliacer Fuentealba</strong>, a Computer Civil Engineer specializing in Information Technologies, graduated from the Universidad Católica de Temuco (2019–2024).",
     bio2: "I have over 4 years of experience in Backend development, specializing in APIs and microservices with <strong>Node.js, TypeScript</strong>, and PHP frameworks like <strong>Laravel and Lumen</strong>. I've worked in multi-stack environments with React, Docker, PostgreSQL, MongoDB, and SQL Server, applying agile methodologies (Scrum, Kanban) in distributed teams.",
-    bio3: "I integrate <strong>AI tools (Claude Code, Gemini)</strong> throughout the development lifecycle to optimize code refactoring, accelerate automated test creation, and improve team efficiency. I focus on delivering <strong>clean, scalable code</strong> and on the continuous improvement of the systems I contribute to.",
+    bio3: "I integrate <strong>AI tools (Claude Code, Gemini)</strong> throughout the development lifecycle to optimize code refactoring, accelerate automated test creation, and improve team efficiency. I work with Claude Code orchestrating <strong>specialized subagents</strong> (orchestrator, pm, architect, ux, backend, frontend, dba, debugger, qa, reviewer, security, devops and documenter), always with human checkpoints. I focus on delivering <strong>clean, scalable code</strong> and on the continuous improvement of the systems I contribute to.",
     v1_t: "Clean Code",
     v1_d: "I write code thinking about who will maintain it, not just making it work today.",
     v2_t: "Value-Oriented",
@@ -48,6 +50,8 @@ const content = {
     edu_title: "Education & Certifications",
     edu_ver_doc: "View document",
     edu_ver_cred: "View credential",
+    modal_doc: "Document",
+    modal_close: "Close",
     int_title: "Personal Interests",
     interests: [
       { name: "Video Games", icon: "🎮" },
@@ -333,7 +337,7 @@ const c = content[lang];
             {c.edu_ver_doc}
           </div>
         </button>
-        <button class="edu-item card" data-doc="/cv.pdf">
+        <div class="edu-item card">
           <span class="edu-badge"
             >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
           >
@@ -345,8 +349,8 @@ const c = content[lang];
                 : "Catholic University of Temuco · Aug–Nov 2020"
             }</span
           >
-        </button>
-        <button class="edu-item card" data-doc="/cv.pdf">
+        </div>
+        <div class="edu-item card">
           <span class="edu-badge"
             >{lang === "es" ? "📋 Curso" : "📋 Course"}</span
           >
@@ -358,18 +362,25 @@ const c = content[lang];
                 : "Catholic University of Temuco · Apr–Jun 2020"
             }</span
           >
-        </button>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- Modal Wrapper -->
-<div id="doc-modal" class="modal-overlay" aria-hidden="true" role="dialog">
+<div
+  id="doc-modal"
+  class="modal-overlay"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  data-default-title={c.modal_doc}
+>
   <div class="modal-content">
     <div class="modal-header">
-      <h3 id="modal-title" class="modal-title">Documento</h3>
-      <button id="modal-close" class="modal-close" aria-label="Cerrar modal">
+      <h3 id="modal-title" class="modal-title">{c.modal_doc}</h3>
+      <button id="modal-close" class="modal-close" aria-label={c.modal_close}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="18"
@@ -532,14 +543,18 @@ const c = content[lang];
     gap: 6px;
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    cursor: pointer;
     text-align: left;
     appearance: none;
     font-family: inherit;
     outline: none;
   }
 
-  .edu-item:hover {
+  /* Solo las tarjetas con documento (botones) son interactivas */
+  button.edu-item {
+    cursor: pointer;
+  }
+
+  button.edu-item:hover {
     border-color: var(--color-accent-light);
   }
 
@@ -614,8 +629,18 @@ const c = content[lang];
 </style>
 
 <script>
+  // Controlador del ciclo anterior: astro:page-load puede dispararse varias veces (navegación),
+  // así que se aborta el anterior para no acumular listeners en `document`.
+  let pageController: AbortController | undefined;
+  // Temporizador que vacía el cuerpo del modal tras el fade de cierre; se cancela al reabrir.
+  let clearTimer: number | undefined;
+
   document.addEventListener("astro:page-load", () => {
-    const triggers = document.querySelectorAll(".edu-item");
+    pageController?.abort();
+    pageController = new AbortController();
+    const { signal } = pageController;
+
+    const triggers = document.querySelectorAll<HTMLElement>(".edu-item[data-doc]");
     const modal = document.getElementById("doc-modal");
     const closeBtn = document.getElementById("modal-close");
     const modalBody = document.getElementById("doc-modal-body");
@@ -623,36 +648,118 @@ const c = content[lang];
 
     if (!modal) return;
 
-    triggers.forEach((trigger) => {
-      trigger.addEventListener("click", () => {
-        const doc = trigger.getAttribute("data-doc");
-        const docTitle =
-          trigger.querySelector("strong")?.textContent || "Documento";
+    const defaultTitle = modal.dataset.defaultTitle ?? "";
+    let lastTrigger: HTMLElement | null = null;
 
-        if (doc && modalBody) {
-          if (doc.match(/\.(jpeg|jpg|png|webp)$/i)) {
-            modalBody.innerHTML = `<img src="${doc}" alt="${docTitle}" />`;
-          } else {
-            modalBody.innerHTML = `<iframe src="${doc}"></iframe>`;
+    triggers.forEach((trigger) => {
+      trigger.addEventListener(
+        "click",
+        () => {
+          const doc = trigger.getAttribute("data-doc");
+          const docTitle =
+            trigger.querySelector("strong")?.textContent || defaultTitle;
+
+          if (doc && modalBody) {
+            // Solo se abren documentos propios del sitio (evita inyección vía data-doc)
+            if (!/^\/(certificados\/|CV_)/.test(doc)) return;
+
+            // Evita que el timer de un cierre previo vacíe el documento recién cargado
+            if (clearTimer !== undefined) {
+              clearTimeout(clearTimer);
+              clearTimer = undefined;
+            }
+            lastTrigger = trigger;
+
+            let el: HTMLElement;
+            if (doc.match(/\.(jpeg|jpg|png|webp)$/i)) {
+              const img = document.createElement("img");
+              img.src = doc;
+              img.alt = docTitle;
+              el = img;
+            } else {
+              const frame = document.createElement("iframe");
+              frame.src = doc;
+              frame.title = docTitle;
+              el = frame;
+            }
+            modalBody.replaceChildren(el);
+            if (title) title.textContent = docTitle;
+            modal.classList.add("is-open");
+            document.body.style.overflow = "hidden";
+            // Se enfoca en el siguiente frame: en el mismo tick el overlay aún cuenta como
+            // visibility:hidden y el navegador ignora el focus().
+            requestAnimationFrame(() => closeBtn?.focus());
           }
-          if (title) title.textContent = docTitle;
-          modal.classList.add("is-open");
-          document.body.style.overflow = "hidden";
-        }
-      });
+        },
+        { signal },
+      );
     });
 
     const closeModal = () => {
+      if (!modal.classList.contains("is-open")) return;
       modal.classList.remove("is-open");
       document.body.style.overflow = "";
       if (modalBody) {
-        setTimeout(() => (modalBody.innerHTML = ""), 300);
+        if (clearTimer !== undefined) clearTimeout(clearTimer);
+        clearTimer = window.setTimeout(() => {
+          modalBody.replaceChildren();
+          clearTimer = undefined;
+        }, 300);
       }
+      // Devuelve el foco a la tarjeta que abrió el modal
+      lastTrigger?.focus();
+      lastTrigger = null;
     };
 
-    closeBtn?.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
+    closeBtn?.addEventListener("click", closeModal, { signal });
+    modal.addEventListener(
+      "click",
+      (e) => {
+        if (e.target === modal) closeModal();
+      },
+      { signal },
+    );
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (!modal.classList.contains("is-open")) return;
+        if (e.key === "Escape") {
+          closeModal();
+          return;
+        }
+        // Trampa de foco: Tab/Shift+Tab se quedan dentro del modal
+        if (e.key === "Tab") {
+          const focusables = Array.from(
+            modal.querySelectorAll<HTMLElement>("button:not([disabled]), iframe"),
+          );
+          if (focusables.length === 0) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          const active = document.activeElement as HTMLElement | null;
+          if (!active || !modal.contains(active)) {
+            e.preventDefault();
+            first.focus();
+          } else if (e.shiftKey && active === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && active === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      },
+      { signal },
+    );
+    // Respaldo de la trampa: el visor de PDF del iframe se queda con las teclas, así que el
+    // keydown de arriba no ve el Tab que lo saca del modal; si el foco cae fuera, se devuelve.
+    document.addEventListener(
+      "focusin",
+      (e) => {
+        if (!modal.classList.contains("is-open")) return;
+        if (modal.contains(e.target as Node)) return;
+        modal.querySelector<HTMLElement>("button:not([disabled]), iframe")?.focus();
+      },
+      { signal },
+    );
   });
 </script>

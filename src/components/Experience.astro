@@ -286,10 +286,10 @@ const experiences = experiencesData[lang as keyof typeof experiencesData];
                       )}
                       {!t.customIcon && t.icon && (
                         <img
-                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-original.svg`}
+                          src={`https://cdn.jsdelivr.net/gh/devicons/devicon@2.18.0/icons/${t.icon}/${t.icon}-original.svg`}
                           alt={t.name}
                           class="tech-icon"
-                          onerror={`this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon}/${t.icon}-plain.svg'`}
+                          onerror={`this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@2.18.0/icons/${t.icon}/${t.icon}-plain.svg'`}
                         />
                       )}
                       {t.name}
