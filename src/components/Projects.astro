@@ -55,6 +55,20 @@ const munchMateTags: TechTag[] = [
 
 const munchMateImages = Array.from({ length: 18 }, (_, i) => `/images/munchmate-${i + 1}.png`);
 
+const agentOfficeTags: TechTag[] = [
+  { name: "TypeScript", icon: "typescript-plain" },
+  { name: "React", icon: "react-original" },
+  { name: "Three.js", icon: "threejs-original" },
+  { name: "Node.js", icon: "nodejs-plain" },
+  { name: "WebSocket" },
+  { name: "Docker", icon: "docker-plain" },
+  { name: "Vitest", icon: "vitest-original" },
+  { name: "Playwright", icon: "playwright-plain" },
+  { name: "Claude Code", customIcon: "claude" },
+];
+
+const agentOfficeImages = Array.from({ length: 3 }, (_, i) => `/images/agenteoffice-${i + 1}.png`);
+
 const projectsData: Record<string, Project[]> = {
   es: [
     {
@@ -70,6 +84,17 @@ const projectsData: Record<string, Project[]> = {
       extraLinks: [{ href: "https://demo.munchmate.cl", label: "Probar demo" }],
       tags: munchMateTags,
       images: munchMateImages,
+    },
+    {
+      title: "Oficina de Agentes",
+      description:
+        "Una oficina 3D low-poly que muestra en vivo lo que hacen los subagentes de Claude Code: quién trabaja, quién espera un permiso y qué archivos toca cada uno.",
+      longDescription:
+        "Oficina de Agentes es una herramienta local para ver en tiempo real lo que hacen los subagentes de Claude Code. Cada agente tiene un escritorio en una oficina 3D con su estado (trabajando, bloqueado esperando un permiso, terminó, con error o sin señal). Al abrir su panel se ve la tarea actual, los archivos que tocó, el registro de herramientas y su informe final. Hay una vista de lista con la misma información, pensada como vía accesible para teclado, lectores de pantalla y equipos sin WebGL.\n\nFunciona así: Claude Code ejecuta hooks que reenvían cada evento por HTTP a un servidor propio en 127.0.0.1. El servidor reduce y sanea los eventos y los empuja a la web por WebSocket. Con Docker, el contenedor corre sin privilegios, con sistema de archivos de solo lectura y límites de procesos y memoria, y publica su puerto solo en 127.0.0.1. El token de acceso viaja en el fragmento de la URL (la parte después de #, que el navegador no envía al servidor) y la web lo borra de la barra al guardarlo. Incluye además un kit de 26 agentes y 19 skills, y un modo de edición del diseño de la oficina que viene desactivado por defecto.\n\nEstado real: la Fase 1 (solo lectura) está completa. La Fase 2, para asignar tareas a los agentes con tu propia clave de API de Anthropic, está implementada, pero solo se ha probado con un SDK simulado, no con el SDK real ni con una clave real. La Fase 3 (pulido y publicación) está en curso: todavía no se publica en npm y se usa desde una copia del repositorio. El código tiene pruebas con Vitest y flujos de navegador con Playwright, incluidas pruebas de accesibilidad con axe.\n\n⚡ Asistida por IA — Proyecto co-desarrollado con Claude Code y un equipo de subagentes especializados (orquestador, pm, arquitecto, ux, backend, frontend, qa, reviewer, seguridad, devops, documentador y otros). Cada paso quedó con sus puntos de control humano.",
+      type: "Web App",
+      year: "2026",
+      tags: agentOfficeTags,
+      images: agentOfficeImages,
     },
     {
       title: "Pfinance",
@@ -271,6 +296,17 @@ const projectsData: Record<string, Project[]> = {
       extraLinks: [{ href: "https://demo.munchmate.cl", label: "Try the demo" }],
       tags: munchMateTags,
       images: munchMateImages,
+    },
+    {
+      title: "Agent Office",
+      description:
+        "A low-poly 3D office that shows live what Claude Code subagents are doing: who is working, who is waiting for a permission, and which files each one touched.",
+      longDescription:
+        "Agent Office is a local tool to watch in real time what Claude Code subagents are doing. Each agent has a desk in a 3D office with its status (working, blocked waiting for a permission, finished, errored or no signal). Opening its panel shows the current task, the files it touched, the tool log and its final report. A list view carries the same information as an accessible alternative for keyboard users, screen readers and machines without WebGL.\n\nHow it works: Claude Code runs hooks that forward each event over HTTP to a local server on 127.0.0.1. The server reduces and sanitizes the events and pushes them to the web app over WebSocket. With Docker, the container runs unprivileged with a read-only filesystem and process and memory limits, and publishes its port on 127.0.0.1 only. The access token travels in the URL fragment (the part after #, which the browser never sends to the server) and the web app removes it from the address bar once stored. It also ships a kit of 26 agents and 19 skills, plus an office layout edit mode that is off by default.\n\nActual status: Phase 1 (read-only) is complete. Phase 2, which assigns tasks to agents using your own Anthropic API key, is implemented but has only been tested against a simulated SDK, not the real SDK or a real key. Phase 3 (polish and release) is in progress: it is not yet published to npm and runs from a clone of the repository. The code has Vitest tests and Playwright browser flows, including accessibility tests with axe.\n\n⚡ AI-Assisted — Project co-developed with Claude Code and a team of specialized subagents (orchestrator, pm, architect, ux, backend, frontend, qa, reviewer, security, devops, documenter and others). Every step had human checkpoints.",
+      type: "Web App",
+      year: "2026",
+      tags: agentOfficeTags,
+      images: agentOfficeImages,
     },
     {
       title: "Pfinance",
@@ -1109,6 +1145,7 @@ const typeColors: Record<string, string> = {
   }
 
   .proj-modal-description {
+    white-space: pre-line;
     font-size: 0.95rem;
     color: var(--color-muted);
     line-height: 1.85;
