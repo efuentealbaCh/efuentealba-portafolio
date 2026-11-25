@@ -2,7 +2,19 @@
   command = "npm run build"
   publish = "dist"
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+[build.environment]
+  NODE_VERSION = "22"
+
+# La raíz "/" se resuelve con src/pages/index.astro (meta refresh a /es/).
+# Las rutas inexistentes responden con dist/404.html (src/pages/404.astro).
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # SAMEORIGIN (no DENY): About.astro muestra PDFs de /certificados/ en un iframe del mismo origen
+    X-Frame-Options = "SAMEORIGIN"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    # Report-Only: no bloquea nada todavía; revisar la consola del navegador antes de pasar a Content-Security-Policy
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://cdn.jsdelivr.net; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'"

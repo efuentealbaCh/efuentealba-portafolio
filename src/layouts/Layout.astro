@@ -7,12 +7,14 @@ interface Props {
   title?: string;
   description?: string;
   canonicalPath?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Portafolio | Eliacer Antonio Fuentealba Chaura — Ingeniero Civil en Informática',
   description = 'Portafolio profesional de Eliacer Antonio Fuentealba Chaura, Ingeniero Civil en Informática especializado en Backend, APIs y microservicios.',
   canonicalPath = '',
+  noindex = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -72,8 +74,8 @@ const personSchema = {
       ? "Eliacer Fuentealba, Eliacer Antonio Fuentealba Chaura, Eliacer Fuentealba Chaura, Software Engineer Chile, Backend Developer, Node.js TypeScript Laravel"
       : "Eliacer Fuentealba, Eliacer Antonio Fuentealba Chaura, Eliacer Fuentealba Chaura, Ingeniero Civil en Informática, Desarrollador Backend Chile, Node.js TypeScript Laravel"
     } />
-    <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={canonicalUrl} />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    {!noindex && <link rel="canonical" href={canonicalUrl} />}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />

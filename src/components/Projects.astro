@@ -117,7 +117,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Supabase", icon: "supabase-plain" },
         { name: "Docker", icon: "docker-plain" },
         { name: "Vercel", icon: "vercel-original" },
-        { name: "Render", icon: "render-plain" },
+        { name: "Render" },
         { name: "Git", icon: "git-plain" },
         { name: "Claude Code", customIcon: "claude" },
       ],
@@ -329,7 +329,7 @@ const projectsData: Record<string, Project[]> = {
         { name: "Supabase", icon: "supabase-plain" },
         { name: "Docker", icon: "docker-plain" },
         { name: "Vercel", icon: "vercel-original" },
-        { name: "Render", icon: "render-plain" },
+        { name: "Render" },
         { name: "Git", icon: "git-plain" },
         { name: "Claude Code", customIcon: "claude" },
       ],
@@ -530,20 +530,17 @@ const typeColors: Record<string, string> = {
               extraLinks: proj.extraLinks || [],
               images: proj.images,
             })}
-            tabindex="0"
-            role="button"
-            aria-label={`${lang === "es" ? "Ver detalles de" : "View details for"} ${proj.title}`}
           >
             <div class="project-image">
               <div class="project-image-inner">
                 <span
                   class="project-type-badge"
-                  style={`background: ${typeColors[proj.type] || "#6B5B47"}22; color: ${typeColors[proj.type] || "#6B5B47"}`}
+                  style={`--badge-color: ${typeColors[proj.type] || "#6B5B47"}; background: ${typeColors[proj.type] || "#6B5B47"}22`}
                 >
                   {proj.type}
                 </span>
               </div>
-              <div class="project-hover-overlay">
+              <div class="project-hover-overlay" aria-hidden="true">
                 <span class="project-hover-cta">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -574,7 +571,6 @@ const typeColors: Record<string, string> = {
                     target="_blank"
                     rel="noopener noreferrer"
                     class="card-demo-btn"
-                    onclick="event.stopPropagation()"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -600,24 +596,32 @@ const typeColors: Record<string, string> = {
                     target="_blank"
                     rel="noopener noreferrer"
                     class="card-demo-btn"
-                    onclick="event.stopPropagation()"
                   >
                     {l.label}
                   </a>
                 ))}
               </div>
-              <h3 class="project-title">{proj.title}</h3>
+              <h3 class="project-title">
+                <button
+                  type="button"
+                  class="card-open"
+                  aria-haspopup="dialog"
+                  aria-label={`${lang === "es" ? "Ver detalles de" : "View details for"} ${proj.title}`}
+                >
+                  {proj.title}
+                </button>
+              </h3>
               <p class="project-description">{proj.description}</p>
               <div class="tag-list">
                 {proj.tags.map((t) => (
                   <span class={`tech-chip${t.customIcon ? ` chip-ai chip-${t.customIcon}` : ''}`}>
                     {t.customIcon && (
-                      <span class="tech-icon custom-icon" set:html={customIcons[t.customIcon]} />
+                      <span class="tech-icon custom-icon" aria-hidden="true" set:html={customIcons[t.customIcon]} />
                     )}
                     {!t.customIcon && t.icon && (
                       <img
-                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${t.icon.split("-")[0]}/${t.icon}.svg`}
-                        alt={t.name}
+                        src={`https://cdn.jsdelivr.net/gh/devicons/devicon@2.18.0/icons/${t.icon.split("-")[0]}/${t.icon}.svg`}
+                        alt=""
                         class="tech-icon"
                         crossorigin="anonymous"
                         onerror="this.style.display='none'"
@@ -639,9 +643,12 @@ const typeColors: Record<string, string> = {
 <div
   id="project-modal"
   class="proj-modal-overlay"
-  aria-hidden="true"
   role="dialog"
   aria-modal="true"
+  aria-labelledby="proj-modal-title"
+  data-l-slide={lang === "es" ? "Ir a la captura {n}" : "Go to screenshot {n}"}
+  data-l-alt={lang === "es" ? "{title}, captura {n} de {m}" : "{title}, screenshot {n} of {m}"}
+  data-l-live={lang === "es" ? "Imagen {n} de {m}" : "Image {n} of {m}"}
 >
   <div class="proj-modal-content">
     <button
@@ -668,12 +675,19 @@ const typeColors: Record<string, string> = {
     </button>
 
     <!-- Carousel -->
-    <div class="proj-carousel" id="proj-carousel">
+    <div
+      class="proj-carousel"
+      id="proj-carousel"
+      role="group"
+      aria-roledescription={lang === "es" ? "carrusel" : "carousel"}
+      aria-label={lang === "es" ? "Capturas del proyecto" : "Project screenshots"}
+    >
       <div class="proj-carousel-track" id="proj-carousel-track"></div>
+      <div class="carousel-status" id="carousel-status" aria-live="polite"></div>
       <button
         class="carousel-btn carousel-prev"
         id="carousel-prev"
-        aria-label="Anterior"
+        aria-label={lang === "es" ? "Anterior" : "Previous"}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -691,7 +705,7 @@ const typeColors: Record<string, string> = {
       <button
         class="carousel-btn carousel-next"
         id="carousel-next"
-        aria-label="Siguiente"
+        aria-label={lang === "es" ? "Siguiente" : "Next"}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -762,6 +776,7 @@ const typeColors: Record<string, string> = {
 
   /* ---- CARD ---- */
   .project-card {
+    position: relative;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -813,7 +828,7 @@ const typeColors: Record<string, string> = {
   .project-hover-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.65);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -822,7 +837,8 @@ const typeColors: Record<string, string> = {
     z-index: 2;
   }
 
-  .project-card:hover .project-hover-overlay {
+  .project-card:hover .project-hover-overlay,
+  .project-card:has(.card-open:focus-visible) .project-hover-overlay {
     opacity: 1;
   }
 
@@ -843,6 +859,20 @@ const typeColors: Record<string, string> = {
     padding: 4px 10px;
     border-radius: 999px;
     font-weight: 500;
+    /* Texto con el color del tema (contraste AA); el color del tipo va solo en el punto */
+    color: var(--color-text);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-type-badge::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--badge-color);
+    flex-shrink: 0;
   }
 
   .project-body {
@@ -873,12 +903,14 @@ const typeColors: Record<string, string> = {
     border-radius: 6px;
     transition: all 0.2s ease;
     margin-left: auto;
-    z-index: 3;
+    min-height: 32px;
+    position: relative;
+    z-index: 5;
   }
 
   .card-demo-btn:hover {
     background: var(--color-accent, #5a7d6b);
-    color: #ffffff;
+    color: var(--color-bg);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   }
 
@@ -896,6 +928,30 @@ const typeColors: Record<string, string> = {
     color: var(--color-text);
     line-height: 1.3;
     margin: 0;
+  }
+
+  /* Botón real dentro del h3: su ::after cubre toda la tarjeta (tarjeta completa clicable;
+     los enlaces quedan por encima con z-index 5 y fuera del botón). */
+  .card-open {
+    all: unset;
+    cursor: pointer;
+  }
+
+  .card-open::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+  }
+
+  .card-open:focus-visible {
+    outline: none;
+  }
+
+  .card-open:focus-visible::after {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -4px;
+    border-radius: 12px;
   }
 
   .project-description {
@@ -944,13 +1000,21 @@ const typeColors: Record<string, string> = {
     justify-content: center;
     padding: 24px;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    /* visibility se aplaza hasta terminar el fade para sacar el modal cerrado del orden de Tab */
+    transition:
+      opacity 0.3s ease,
+      visibility 0s linear 0.3s;
   }
 
   .proj-modal-overlay.is-open {
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
+    transition:
+      opacity 0.3s ease,
+      visibility 0s;
   }
 
   .proj-modal-content {
@@ -985,7 +1049,10 @@ const typeColors: Record<string, string> = {
     justify-content: center;
     cursor: pointer;
     color: var(--color-text);
-    transition: all 0.2s ease;
+    /* Sin `all`: animar `visibility` heredada impedía enfocar el botón al abrir el modal */
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease;
   }
 
   .proj-modal-close:hover {
@@ -1008,7 +1075,7 @@ const typeColors: Record<string, string> = {
     transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .proj-carousel-track img {
+  .proj-carousel-track :global(img) {
     min-width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1046,29 +1113,76 @@ const typeColors: Record<string, string> = {
 
   .carousel-dots {
     position: absolute;
-    bottom: 12px;
+    bottom: 4px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: calc(100% - 24px);
     z-index: 5;
+    /* Fondo oscuro para que el punto inactivo se lea sobre capturas claras */
+    padding: 2px 8px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.55);
   }
 
-  .carousel-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    transition:
-      background 0.25s ease,
-      transform 0.25s ease;
+  /* Más de 8 slides: sin puntos, contador de texto (el avance sigue en flechas, teclado y botones) */
+  .carousel-dots.many :global(.carousel-dot) {
+    display: none;
+  }
+
+  .carousel-dots.many::after {
+    content: attr(data-counter);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    padding: 2px 6px;
+  }
+
+  /* Objetivo táctil de 24x24; el punto visible (7px) es el ::before */
+  /* :global porque los puntos y el enlace extra los crea el script del modal (sin el atributo de ámbito de Astro) */
+  :global(.carousel-dot) {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
     cursor: pointer;
     border: none;
   }
 
-  .carousel-dot.active {
+  :global(.carousel-dot)::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    margin: -3.5px 0 0 -3.5px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  :global(.carousel-dot.active)::before {
     background: #fff;
     transform: scale(1.3);
+  }
+
+  /* Región en vivo solo para lectores de pantalla */
+  .carousel-status {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
   }
 
   /* ---- MODAL BODY ---- */
@@ -1113,7 +1227,7 @@ const typeColors: Record<string, string> = {
     letter-spacing: 0.08em;
   }
 
-  .proj-modal-link-btn {
+  :global(.proj-modal-link-btn) {
     display: inline-flex;
     align-items: center;
     gap: 6px;
@@ -1131,12 +1245,12 @@ const typeColors: Record<string, string> = {
     flex-shrink: 0;
   }
 
-  .proj-modal-link-btn:hover {
+  :global(.proj-modal-link-btn):hover {
     opacity: 0.85;
     transform: translateY(-1px);
   }
 
-  .proj-modal-link-btn.hidden {
+  :global(.proj-modal-link-btn.hidden) {
     display: none;
   }
 
@@ -1171,33 +1285,6 @@ const typeColors: Record<string, string> = {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
-  }
-
-  .proj-modal-tags .tech-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 16px;
-    background: var(--color-surface-alt);
-    border: 1.5px solid var(--color-accent-light);
-    border-radius: 999px;
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--color-text);
-    letter-spacing: 0.02em;
-    transition: all 0.2s ease;
-  }
-
-  .proj-modal-tags .tech-chip:hover {
-    background: var(--color-bg);
-    border-color: var(--color-accent);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.12);
-  }
-
-  .proj-modal-tags .tech-chip .tech-icon {
-    width: 18px;
-    height: 18px;
   }
 
   /* ---- RESPONSIVE ---- */
@@ -1244,7 +1331,7 @@ const typeColors: Record<string, string> = {
   .chip-claude {
     background: linear-gradient(135deg, rgba(210, 105, 30, 0.12) 0%, rgba(205, 127, 50, 0.08) 100%);
     border-color: rgba(210, 105, 30, 0.35);
-    color: #c46810;
+    color: var(--color-text);
   }
 
   .chip-claude .custom-icon,
@@ -1258,7 +1345,7 @@ const typeColors: Record<string, string> = {
   .chip-gemini {
     background: linear-gradient(135deg, rgba(66, 133, 244, 0.12) 0%, rgba(138, 94, 240, 0.08) 100%);
     border-color: rgba(66, 133, 244, 0.35);
-    color: #4285f4;
+    color: var(--color-text);
   }
 
   .chip-gemini .custom-icon,
@@ -1286,13 +1373,24 @@ const typeColors: Record<string, string> = {
 </style>
 
 <script>
+  // Controlador del ciclo anterior: astro:page-load puede dispararse varias veces (navegación),
+  // así que se aborta el anterior para no acumular listeners en `document`.
+  let pageController: AbortController | undefined;
+  // Temporizador que vacía el carrusel tras el fade de cierre; se cancela al reabrir.
+  let clearTimer: number | undefined;
+
   document.addEventListener("astro:page-load", () => {
+    pageController?.abort();
+    pageController = new AbortController();
+    const { signal } = pageController;
+
     const modal = document.getElementById("project-modal") as HTMLElement;
     const closeBtn = document.getElementById("proj-modal-close");
     const track = document.getElementById("proj-carousel-track") as HTMLElement;
     const dotsContainer = document.getElementById(
       "carousel-dots",
     ) as HTMLElement;
+    const statusEl = document.getElementById("carousel-status");
     const prevBtn = document.getElementById("carousel-prev");
     const nextBtn = document.getElementById("carousel-next");
     const modalTitle = document.getElementById("proj-modal-title");
@@ -1309,48 +1407,106 @@ const typeColors: Record<string, string> = {
 
     if (!modal) return;
 
+    // Plantillas de texto en el idioma de la página (vienen de Astro vía data-*).
+    const fmt = (tpl: string | undefined, vars: Record<string, string | number>) =>
+      (tpl ?? "").replace(/\{(\w+)\}/g, (_, k: string) => String(vars[k] ?? ""));
+    const labelSlide = modal.dataset.lSlide;
+    const labelAlt = modal.dataset.lAlt;
+    const labelLive = modal.dataset.lLive;
+
+    /** Devuelve la URL normalizada solo si es http(s); si no, null (el botón se oculta). */
+    const safeHref = (raw: unknown): string | null => {
+      if (typeof raw !== "string") return null;
+      try {
+        const u = new URL(raw);
+        return u.protocol === "https:" || u.protocol === "http:" ? u.href : null;
+      } catch {
+        return null;
+      }
+    };
+
     let currentSlide = 0;
     let totalSlides = 0;
+    let lastTrigger: HTMLElement | null = null;
 
     function goTo(index: number) {
       currentSlide = (index + totalSlides) % totalSlides;
       track.style.transform = `translateX(-${currentSlide * 100}%)`;
-      document.querySelectorAll(".carousel-dot").forEach((d, i) => {
-        d.classList.toggle("active", i === currentSlide);
+      dotsContainer.querySelectorAll(".carousel-dot").forEach((d, i) => {
+        const active = i === currentSlide;
+        d.classList.toggle("active", active);
+        if (active) d.setAttribute("aria-current", "true");
+        else d.removeAttribute("aria-current");
       });
+      Array.from(track.children).forEach((img, i) => {
+        if (i === currentSlide) img.removeAttribute("aria-hidden");
+        else img.setAttribute("aria-hidden", "true");
+      });
+      dotsContainer.dataset.counter = `${currentSlide + 1} / ${totalSlides}`;
+      if (statusEl)
+        statusEl.textContent = fmt(labelLive, { n: currentSlide + 1, m: totalSlides });
     }
 
-    prevBtn?.addEventListener("click", () => goTo(currentSlide - 1));
-    nextBtn?.addEventListener("click", () => goTo(currentSlide + 1));
+    prevBtn?.addEventListener("click", () => goTo(currentSlide - 1), { signal });
+    nextBtn?.addEventListener("click", () => goTo(currentSlide + 1), { signal });
+
+    /** Construye un <svg> a partir de una cadena constante sin usar innerHTML. */
+    const buildSvg = (svg: string): Node | null => {
+      const doc = new DOMParser().parseFromString(svg, "image/svg+xml");
+      const el = doc.documentElement;
+      if (!el || el.nodeName.toLowerCase() !== "svg" || doc.querySelector("parsererror"))
+        return null;
+      return document.importNode(el, true);
+    };
+
+    // SVG icon strings for AI tools (same as Astro customIcons map)
+    const customIconSVGs: Record<string, string> = {
+      claude: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.6-.097L.898 12.5l-.898-.324.898-.274 1.875-.122 1.6-.097 2.339-.121 2.698-.074.79-.048h.229l.08-.128-.08-.229-4.72-2.647-.899-.582-1.117-1.016-.87-1.016-.267-.945.267-.218.945.267 1.016.87 1.016 1.117.582.899 4.72 2.647.23.08.127-.08V9.2l.049-.79.073-2.698.097-2.339.097-1.6.122-1.875L12.5.898l.274-.898.324.898.122 1.875.097 1.6.097 2.339.073 2.698.049.79v.229l.127.08.23-.08 2.647-4.72.582-.899 1.016-1.117 1.016-.87.945-.267.218.267-.267.945-.87 1.016-1.016 1.117-.582.899-2.647 4.72-.08.23.08.127H15.8l.79.049 2.698.073 2.339.097 1.6.097 1.875.122.898.274-.898.324-1.875.122-1.6.097-2.339.097-2.698.073-.79.049h-.229l-.08.127.08.23 4.72 2.647.899.582 1.117 1.016.87 1.016.267.945-.218.267-.945-.267-1.016-.87-1.016-1.117-.582-.899-4.72-2.647-.23-.08-.127.08V15.8l-.049.79-.073 2.698-.097 2.339-.097 1.6-.122 1.875-.324.898-.274-.898-.122-1.875-.097-1.6-.097-2.339-.073-2.698-.049-.79V15.8l-.127-.08-.23.08-2.647 4.72-.582.899-1.016 1.117-1.016.87-.945.267-.267-.218.267-.945.87-1.016 1.016-1.117.582-.899 2.647-4.72.08-.23-.08-.127H8.2l-.79-.049-2.698-.073-2.339-.097-1.6-.097-1.875-.122-.898-.324z"/></svg>`,
+      gemini: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A14.304 14.304 0 000 12 14.304 14.304 0 0012 0a14.305 14.305 0 0012 12 14.305 14.305 0 00-12 12"/></svg>`,
+    };
 
     // Open modal
     document.querySelectorAll(".project-card").forEach((card) => {
-      const open = () => {
+      const open = (e: Event) => {
+        // Los enlaces de la tarjeta (demo, extra) no abren el modal
+        if ((e.target as Element).closest("a")) return;
         const raw = card.getAttribute("data-project");
         if (!raw) return;
         const data = JSON.parse(raw);
 
+        // Evita que el timer de un cierre previo vacíe el carrusel recién armado
+        if (clearTimer !== undefined) {
+          clearTimeout(clearTimer);
+          clearTimer = undefined;
+        }
+        lastTrigger = card.querySelector<HTMLElement>(".card-open");
+
         // Carousel
-        track.innerHTML = "";
-        dotsContainer.innerHTML = "";
+        track.replaceChildren();
+        dotsContainer.replaceChildren();
         totalSlides = data.images.length;
         currentSlide = 0;
 
         data.images.forEach((src: string, i: number) => {
           const img = document.createElement("img");
           img.src = src;
-          img.alt = `${data.title} screenshot ${i + 1}`;
+          img.alt = fmt(labelAlt, { title: data.title, n: i + 1, m: totalSlides });
           img.loading = "lazy";
           track.appendChild(img);
 
           const dot = document.createElement("button");
-          dot.className = `carousel-dot${i === 0 ? " active" : ""}`;
-          dot.setAttribute("aria-label", `Slide ${i + 1}`);
+          dot.type = "button";
+          dot.className = "carousel-dot";
+          dot.setAttribute("aria-label", fmt(labelSlide, { n: i + 1 }));
           dot.addEventListener("click", () => goTo(i));
           dotsContainer.appendChild(dot);
         });
 
-        track.style.transform = "translateX(0)";
+        // Con muchas capturas los puntos ocuparían varias filas: se muestra un contador "n / m"
+        dotsContainer.classList.toggle("many", totalSlides > 8);
+        goTo(0);
+        // La región en vivo solo anuncia cambios de imagen, no la apertura
+        if (statusEl) statusEl.textContent = "";
 
         // Show/hide nav
         const showNav = totalSlides > 1;
@@ -1368,12 +1524,14 @@ const typeColors: Record<string, string> = {
 
         // Link
         if (modalLink) {
-          if (data.link) {
-            modalLink.href = data.link;
+          const href = safeHref(data.link);
+          if (href) {
+            modalLink.href = href;
             const label = document.getElementById("proj-modal-link-label");
             if (label) label.textContent = data.linkLabel || defaultLinkLabel;
             modalLink.classList.remove("hidden");
           } else {
+            modalLink.removeAttribute("href");
             modalLink.classList.add("hidden");
           }
         }
@@ -1383,8 +1541,10 @@ const typeColors: Record<string, string> = {
         if (extraBox) {
           extraBox.replaceChildren();
           for (const l of (data.extraLinks ?? []) as { href: string; label: string }[]) {
+            const href = safeHref(l.href);
+            if (!href) continue;
             const a = document.createElement("a");
-            a.href = l.href;
+            a.href = href;
             a.target = "_blank";
             a.rel = "noopener noreferrer";
             a.className = "proj-modal-link-btn";
@@ -1395,28 +1555,25 @@ const typeColors: Record<string, string> = {
 
         // Tags — same chip style as project cards
         if (modalTags) {
-          modalTags.innerHTML = "";
-          // SVG icon strings for AI tools (same as Astro customIcons map)
-          const customIconSVGs: Record<string, string> = {
-            claude: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-1.6-.097L.898 12.5l-.898-.324.898-.274 1.875-.122 1.6-.097 2.339-.121 2.698-.074.79-.048h.229l.08-.128-.08-.229-4.72-2.647-.899-.582-1.117-1.016-.87-1.016-.267-.945.267-.218.945.267 1.016.87 1.016 1.117.582.899 4.72 2.647.23.08.127-.08V9.2l.049-.79.073-2.698.097-2.339.097-1.6.122-1.875L12.5.898l.274-.898.324.898.122 1.875.097 1.6.097 2.339.073 2.698.049.79v.229l.127.08.23-.08 2.647-4.72.582-.899 1.016-1.117 1.016-.87.945-.267.218.267-.267.945-.87 1.016-1.016 1.117-.582.899-2.647 4.72-.08.23.08.127H15.8l.79.049 2.698.073 2.339.097 1.6.097 1.875.122.898.274-.898.324-1.875.122-1.6.097-2.339.097-2.698.073-.79.049h-.229l-.08.127.08.23 4.72 2.647.899.582 1.117 1.016.87 1.016.267.945-.218.267-.945-.267-1.016-.87-1.016-1.117-.582-.899-4.72-2.647-.23-.08-.127.08V15.8l-.049.79-.073 2.698-.097 2.339-.097 1.6-.122 1.875-.324.898-.274-.898-.122-1.875-.097-1.6-.097-2.339-.073-2.698-.049-.79V15.8l-.127-.08-.23.08-2.647 4.72-.582.899-1.016 1.117-1.016.87-.945.267-.267-.218.267-.945.87-1.016 1.016-1.117.582-.899 2.647-4.72.08-.23-.08-.127H8.2l-.79-.049-2.698-.073-2.339-.097-1.6-.097-1.875-.122-.898-.324z"/></svg>`,
-            gemini: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 24A14.304 14.304 0 000 12 14.304 14.304 0 0012 0a14.305 14.305 0 0012 12 14.305 14.305 0 00-12 12"/></svg>`,
-          };
+          modalTags.replaceChildren();
           data.tags.forEach((tag: { name: string; icon?: string; customIcon?: string }) => {
             const chip = document.createElement("span");
             if (tag.customIcon) {
               chip.className = `modal-chip chip-ai chip-${tag.customIcon}`;
               const iconWrapper = document.createElement("span");
               iconWrapper.className = "custom-icon";
+              iconWrapper.setAttribute("aria-hidden", "true");
               iconWrapper.style.cssText = "display:inline-flex;align-items:center;width:16px;height:16px;flex-shrink:0";
-              iconWrapper.innerHTML = customIconSVGs[tag.customIcon] || "";
+              const svg = buildSvg(customIconSVGs[tag.customIcon] || "");
+              if (svg) iconWrapper.appendChild(svg);
               chip.appendChild(iconWrapper);
             } else {
               chip.className = "modal-chip";
               if (tag.icon) {
                 const iconBase = tag.icon.split("-")[0];
                 const img = document.createElement("img");
-                img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${iconBase}/${tag.icon}.svg`;
-                img.alt = tag.name;
+                img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon@2.18.0/icons/${iconBase}/${tag.icon}.svg`;
+                img.alt = "";
                 img.crossOrigin = "anonymous";
                 img.width = 16;
                 img.height = 16;
@@ -1430,44 +1587,83 @@ const typeColors: Record<string, string> = {
         }
 
         modal.classList.add("is-open");
-        modal.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
+        // Reinicia el scroll del contenido por si quedó desplazado de una apertura anterior
+        modal.querySelector<HTMLElement>(".proj-modal-content")?.scrollTo(0, 0);
+        // Se enfoca en el siguiente frame: en el mismo tick el overlay aún cuenta como
+        // visibility:hidden y el navegador ignora el focus().
+        requestAnimationFrame(() => closeBtn?.focus());
       };
 
-      card.addEventListener("click", open);
-      card.addEventListener("keydown", (e) => {
-        if (
-          (e as KeyboardEvent).key === "Enter" ||
-          (e as KeyboardEvent).key === " "
-        ) {
-          e.preventDefault();
-          open();
-        }
-      });
+      // La tarjeta completa es clicable (el ::after del botón .card-open la cubre);
+      // Enter/Espacio los maneja el <button> nativo, que dispara este click.
+      card.addEventListener("click", open, { signal });
     });
 
     // Close
     const closeModal = () => {
+      if (!modal.classList.contains("is-open")) return;
       modal.classList.remove("is-open");
-      modal.setAttribute("aria-hidden", "true");
       document.body.style.overflow = "";
-      setTimeout(() => {
-        track.innerHTML = "";
-        dotsContainer.innerHTML = "";
+      if (clearTimer !== undefined) clearTimeout(clearTimer);
+      clearTimer = window.setTimeout(() => {
+        track.replaceChildren();
+        dotsContainer.replaceChildren();
+        clearTimer = undefined;
       }, 350);
+      // Devuelve el foco a la tarjeta que abrió el modal
+      lastTrigger?.focus();
+      lastTrigger = null;
     };
 
-    closeBtn?.addEventListener("click", closeModal);
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && modal.classList.contains("is-open"))
-        closeModal();
-      if (e.key === "ArrowLeft" && modal.classList.contains("is-open"))
-        goTo(currentSlide - 1);
-      if (e.key === "ArrowRight" && modal.classList.contains("is-open"))
-        goTo(currentSlide + 1);
-    });
+    closeBtn?.addEventListener("click", closeModal, { signal });
+    modal.addEventListener(
+      "click",
+      (e) => {
+        if (e.target === modal) closeModal();
+      },
+      { signal },
+    );
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (!modal.classList.contains("is-open")) return;
+        if (e.key === "Escape") {
+          closeModal();
+          return;
+        }
+        // Trampa de foco: Tab/Shift+Tab se quedan dentro del modal
+        if (e.key === "Tab") {
+          const focusables = Array.from(
+            modal.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+          ).filter((el) => el.offsetParent !== null || el === closeBtn);
+          if (focusables.length === 0) return;
+          const first = focusables[0];
+          const last = focusables[focusables.length - 1];
+          const active = document.activeElement as HTMLElement | null;
+          if (!active || !modal.contains(active)) {
+            e.preventDefault();
+            first.focus();
+          } else if (e.shiftKey && active === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && active === last) {
+            e.preventDefault();
+            first.focus();
+          }
+          return;
+        }
+        if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+          // No interferir cuando el foco está en un enlace o campo; los botones del
+          // modal (cerrar, anterior/siguiente, puntos) no usan las flechas.
+          const target = e.target as HTMLElement | null;
+          if (target?.closest("a, input, textarea, select")) return;
+          goTo(currentSlide + (e.key === "ArrowLeft" ? -1 : 1));
+        }
+      },
+      { signal },
+    );
   });
 </script>

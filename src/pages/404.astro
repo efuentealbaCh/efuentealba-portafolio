@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout
+  title="404 | Eliacer Antonio Fuentealba Chaura"
+  description="Página no encontrada / Page not found"
+  noindex
+>
+  <main class="not-found">
+    <p class="code">404</p>
+    <h1>Página no encontrada <span>/ Page not found</span></h1>
+    <p>La página que buscas no existe o fue movida. <br />The page you are looking for does not exist or was moved.</p>
+    <p class="links">
+      <a href="/es/">Ir al inicio</a>
+      <span aria-hidden="true">·</span>
+      <a href="/en/">Go home</a>
+    </p>
+  </main>
+</Layout>
+
+<style>
+  .not-found {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .code {
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--color-accent);
+  }
+  h1 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+  }
+  h1 span {
+    display: block;
+    font-size: 0.6em;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+  .links {
+    display: flex;
+    gap: 12px;
+  }
+  .links a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+</style>
